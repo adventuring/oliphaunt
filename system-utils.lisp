@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defun prerequisite-systems (&optional (child :romance-ii))
   (check-type child string-designator)

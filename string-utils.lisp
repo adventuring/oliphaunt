@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defun strcat (&rest strings)
   (reduce (curry #'concatenate 'string)

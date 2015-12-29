@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 ;;; Internationalization and Localization Support
 
@@ -770,22 +770,22 @@ Note that LEATHNÚ applies this to the final consonant, instead."
       ("seoid"  "seoda")
       ("bean"  "mná")
       ("grasta" "grásta")
-      ;; elephant: probably irregulars?
+      ;; oliphaunt: probably irregulars?
       ("súil" "súila")
       ("deoir" "deora")
       ("cuibreach" "cubraigha")
-      ;; elephant: there are a few more irregulars to add, too.
+      ;; oliphaunt: there are a few more irregulars to add, too.
       (otherwise
        (flet ((lessen (less)
                 (subseq string 0 (- len less))))
          (cond
            ((and (= 4 declension)	; 4* -iú
                  (string-ends "iú" string))
-            ;; observed, elephant
+            ;; observed, oliphaunt
             (strcat (lessen 2) "ithe"))
            ((and (= 4 declension)	; 4* -ú
                  (eql (last-elt string) #\ú))
-            ;; observed, elephant
+            ;; observed, oliphaunt
             (strcat (lessen 1) "uíthe"))
            ((and (= 4 declension)	; 4♀ [rlnm]í
                  (eq :f gender)

@@ -1,9 +1,9 @@
-(asdf:defsystem :elephant
+(asdf:defsystem :oliphaunt
   :description "Various utilities that I use in different projects"
   :author "Bruce-Robert Fenn Pocock"
   :version "2.0.5"
   :maintainer "Bruce-Robert Fenn Pocock"
-  :mailto "brpocock+elephant-lisp@star-hope.org"
+  :mailto "brpocock+oliphaunt-lisp@star-hope.org"
   :licence "AGPLv3" ; if this poses a problem, ask me for a waiver.
   :long-name "Bruce-Robert Fenn Pocock's collection of various utility functions"
 

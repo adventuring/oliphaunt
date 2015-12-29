@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defmacro mapplist ((key value) plist &body body)
   "Map  over the  key/value pairs  of  a plist,  appending the  results.

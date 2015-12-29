@@ -8,7 +8,7 @@
 (require :parse-number)
 (require 'trivial-gray-streams)
 
-(defpackage :elephant
+(defpackage :oliphaunt
   (:use :cl :alexandria
         :bordeaux-threads :local-time :split-sequence :cl-fad :parse-number
         :cl-ppcre :trivial-gray-streams)
@@ -106,7 +106,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    ;; There is a very lengthy set of library functions that we want to
    ;; use without package prefixes in all of our other packages. As
    ;; such, they're exported here from their original packages. In other
-   ;; packages, (:USE :CL :ELEPHANT) is the normal DEFPACKAGE form; MOST
+   ;; packages, (:USE :CL :OLIPHAUNT) is the normal DEFPACKAGE form; MOST
    ;; other packages should NOT be “used” in the DEFPACKAGE form, with
    ;; some exceptions on a subsystem basis.
    alexandria:alist-hash-table
@@ -514,7 +514,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
 
 (require :babel)
 
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defvar +utf-8+ (flexi-streams:make-external-format :utf8 :eol-style :lf))
 

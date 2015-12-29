@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 ;;; EDN output (to Clojure) 
 (defun schemey-record (record)

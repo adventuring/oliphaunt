@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 ;;; Handle reading Roman numerals (up to 4,999) to complement ~@:r
 
@@ -56,7 +56,7 @@ that     it     resembles;     eg,      for     #\C     this     returns
     (#\Ⅾ 500)
     (#\Ⅿ 1000)
     (#\ↀ 1000)
-    (#\ↁ 5000) ; NB. Neither ELEPHANT nor SBCL:FORMAT ~:@R will write 5000+
+    (#\ↁ 5000) ; NB. Neither OLIPHAUNT nor SBCL:FORMAT ~:@R will write 5000+
     (#\ↂ 10000)
     (#\ↁ 50000)
     (#\ↈ 100000)

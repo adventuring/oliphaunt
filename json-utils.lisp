@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defun plist-json (plist)
   (labels ((pre-jsonify (plist)
