@@ -190,3 +190,15 @@ eg: (take-if 5 #'digit-char-p \" a 1 b 2 c 3 d 4 e 5 f 6 g 7\") ⇒ \"12345\""
                  (cons this (take-if (1- count) predicate source))
                  (take-if count predicate (cdr source))))))))
 
+
+
+(defun repeat (count item)
+  (make-list count :initial-element item))
+
+(define-compiler-macro repeat (&whole form count item)
+  (if (and (numberp count)
+           (constantp count)
+           (constantp item))
+      (cons 'list (make-list count :initial-element item))
+      form))
+
