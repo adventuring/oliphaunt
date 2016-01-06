@@ -79,6 +79,19 @@ with the same `place'"
 
 
 
+(defmacro with-do-over-restart ((&optional (tag :do-over) 
+                                           (label "Retry this form")
+                                           &rest format-args) &body body)
+  (with-gensyms (do-over-tag)
+    `(tagbody ,do-over-tag
+        (restart-case
+            (progn ,@body)
+          (,tag () :report (lambda (s)
+                             (format s ,label ,@format-args))
+                (go ,do-over-tag))))))
+
+
+
 (defun strings-list-p (list)
   (and (consp list)
        (every #'stringp list)))
