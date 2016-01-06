@@ -142,13 +142,11 @@ If SOURCE is a function or a symbol, calls that function COUNT times, collecting
   (check-type count (integer 0 *))
   (if (zerop count)
       nil
-      (if (typep source 'sequence)
-          (progn
-            (assert (<= count (length source)) (count source)
-                    "Cannot take ~:d element~:p from a sequence with only ~:d element~:p"
-                    count (length source))
-            (subseq source 0 count))
-          (loop repeat count collect (funcall source)))))
+      (cond ((consp source)
+             (loop for element in source repeat count collect element))
+            ((typep source 'sequence)
+             (subseq source 0 count))
+            (t (loop repeat count collect (funcall source))))))
 
 (defun take-if (count predicate source)
   "As `TAKE', but discards elements which do not satisfy PREDICATE.
@@ -158,17 +156,24 @@ eg: (take-if 5 #'digit-char-p \" a 1 b 2 c 3 d 4 e 5 f 6 g 7\") ⇒ \"12345\""
   (check-type predicate funcallable)
   (if (zerop count)
       nil
-      (if (typep source 'sequence)
-          (coerce (let ((first (elt source 0))
-                        (rest (subseq source 1)))
-                    (if (funcall predicate first)
-                        (concatenate (base-type-of source) 
-                                     (vector first)
-                                     (take-if (1- count) predicate rest)) 
-                        (take-if count predicate rest)))
-                  (base-type-of source))
-          (let ((this (funcall source)))
-            (if (funcall predicate this)
-                (cons this (take-if (1- count) predicate source))
-                (take-if count predicate (cdr source)))))))
+      (cond
+        ((consp source)
+         (loop for element in source
+            with taken = 0
+            while (< taken count)
+            when (funcall predicate element)
+            collect element))
+        ((typep source 'sequence)
+         (coerce (let ((first (elt source 0))
+                       (rest (subseq source 1)))
+                   (if (funcall predicate first)
+                       (concatenate (base-type-of source) 
+                                    (vector first)
+                                    (take-if (1- count) predicate rest)) 
+                       (take-if count predicate rest)))
+                 (base-type-of source)))
+        (t (let ((this (funcall source)))
+             (if (funcall predicate this)
+                 (cons this (take-if (1- count) predicate source))
+                 (take-if count predicate (cdr source))))))))
 
