@@ -43,6 +43,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:c-style-identifier
    #:c-style-identifier-p
    #:doseq
+   #:dohash
    #:escape-by-doubling
    #:escape-c-style
    #:escape-lispy
@@ -100,6 +101,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:todo
    #:until
    #:while
+   #:with-do-over-restart
    #:without-warnings
    
       ;;; Symbols from other libraries
