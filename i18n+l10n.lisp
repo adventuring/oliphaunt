@@ -1033,6 +1033,7 @@ well enough for many (most) English words. At least, an improvement upon
                      (("eeves" "eaves" "oaves") (strcat (lessen 3) "f"))
                      ("ives" (strcat (lessen 3) "fe"))
                      ("mata" (lessen 2))
+                     ("oices" (lessen 1))
                      (("eces" "ices") (strcat (lessen 3) "x"))
                      (("ynges" "anges") (strcat (lessen 3) "x"))
                      ("ae" (lessen 1))
@@ -1065,6 +1066,7 @@ well enough for many (most) English words. At least, an improvement upon
                         car cars
                         phalanx phalanges
                         larynx larynges
+                        invoice invoices
                         ) by #'cddr
    do (assert (equal (make-english-singular pl) sing))
    do (assert (equal (make-english-plural sing) pl)))
