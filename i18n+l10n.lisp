@@ -1251,6 +1251,7 @@ well enough for many (most) English words. At least, an improvement upon
 (assert (equal (counting% :es 1 "casa") "una casa"))
 
 (defun-lang a/an (string)
+  (:la string)
   (:en (let ((letter (elt string 0)))
          (case letter
            ((#\a #\e #\i #\o #\u #\h)
