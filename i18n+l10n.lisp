@@ -1270,6 +1270,33 @@ well enough for many (most) English words. At least, an improvement upon
                           (:f "une "))) string))
   (:ga string))
 
+(defun-lang pluralp (string)
+  
+  )
+
+(defun-lang -the- (string)
+  (:la string)
+  (:ru string)
+  (:en (concatenate 'string (funcall (letter-case string) "the ") string))
+  (:es (strcat (funcall (letter-case string)
+                        (ecase (pluralp% :es string)
+                          (t (ecase (gender-of% :es string)
+                               ((:m nil) "los ")
+                               (:f "las "))) 
+                          ((nil) (ecase (gender-of% :es string)
+                                   ((:m nil) "el ")
+                                   (:f "la "))))) string))
+  (:fr (strcat (funcall (letter-case string)
+                        (ecase (pluralp% :es string)
+                          (t "les ") 
+                          ((nil) (ecase (gender-of% :es string)
+                                   ((:m nil) (if (vowelp (first-elt string)) 
+                                                 "l'" 
+                                                 "le "))
+                                   (:f "la "))))) string))
+  (:ga string))
+
+
 (defun-lang a/an/some (count string)
   (:en (case count
          (0 (concatenate 'string (funcall (letter-case string) "no ")
@@ -1285,8 +1312,6 @@ well enough for many (most) English words. At least, an improvement upon
                                  (plural% :fr count string)))))
   (:ga (plural% :ga count string)))
 
-;;; Credit for Irish language support to Irish language documents by Amy
-;;; de Buitléir, CC-BY 3.0 license, found at
-;;; http://unaleargais.ie/foghlaim/ …
-;;; http://creativecommons.org/licenses/by/3.0/
+;;; Credit for Irish  language test cases to  Irish language documents by Amy  de Buitléir, CC-BY 3.0  license, found at
+;;; http://unaleargais.ie/foghlaim/ … http://creativecommons.org/licenses/by/3.0/
 
