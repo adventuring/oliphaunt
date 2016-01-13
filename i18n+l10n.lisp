@@ -718,7 +718,7 @@ Note that LEATHNÚ applies this to the final consonant, instead."
                :test #'string-beginning)))
 
 (defun vowelp (letter)
-  (find letter "aoeuiáóéúíýàòèùìỳäöëüïÿāōēūīãõẽũĩỹąęųįøæœåŭ"))
+  (find letter "aoeuiáóéúíýàòèùìỳäöëüïÿāōēūīãõẽũĩỹąęųįøæœåŭαοευιωаоеуийюяэыё"))
 
 (defun-lang long-vowel-p (syllable)
   (:la (let* ((first-vowel-pos (position-if #'vowelp syllable))
@@ -726,6 +726,7 @@ Note that LEATHNÚ applies this to the final consonant, instead."
          (and first-vowel-pos
               (or (find first-vowel "āōēūī" :test #'char=)
                   (diphthongp% :la (subseq syllable first-vowel-pos))))))
+  (:ru (some (rcurry #'find "юяиеёь" :test #'char=) syllable))
   (:en (if (and (= 2 (length syllable))
                 (not (vowelp (elt syllable 0)))
                 (alpha-char-p (elt syllable 0))
