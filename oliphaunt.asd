@@ -19,7 +19,7 @@
                :cl-readline
                :cl-unicode
                :cffi
-               :gsll
+               #+sbcl :gsll
                :langutils
                :local-time
                :parse-number
