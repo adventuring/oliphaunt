@@ -1,12 +1,12 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (require :prepl)
 (require :local-time)
 (require :trivial-garbage)
 
-(defpackage :elephant-user
+(defpackage :oliphaunt-user
   (:nicknames :romance2-user :romans-user :romance-ii-user :romance-user)
-  (:use :cl :elephant)
+  (:use :cl :oliphaunt)
   (:export #:help #:hello #:bye))
 
 
@@ -14,10 +14,10 @@
 ;; lain claim to it before us.
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (unless (find-package "USER")
-    (rename-package :elephant-user
-                    :elephant-user
+    (rename-package :oliphaunt-user
+                    :oliphaunt-user
                     (cons "USER"
-                          (package-nicknames :elephant-user)))))
+                          (package-nicknames :oliphaunt-user)))))
 
 (defvar *user-ident* (make-hash-table
                       #+sbcl :weakness
@@ -186,7 +186,7 @@ If you're totally lost here, try (HELP :START)
 
 
 
-(in-package :elephant-user)
+(in-package :oliphaunt-user)
 
 (defun bye ()
   (invoke-restart (find-restart 'exit-module)))

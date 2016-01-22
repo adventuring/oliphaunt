@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defun strcat (&rest strings)
   (reduce (curry #'concatenate 'string)
@@ -415,8 +415,8 @@ string. If the second value is negative, the string was truncated."
                 (warn "Using string interning for STRING-CASE of ~R cases"
                       *--interning-better-breakpoint*))
               (prog1
-                  GSLL:+POSITIVE-INFINITY+
-                (warn "Disabling string interning on this platform"))))
+                  #+sbcl GSLL:+POSITIVE-INFINITY+ #-sbcl most-positive-fixnum
+                  (warn "Disabling string interning on this platform"))))
         (flet ((make-random-string (string-length)
                  (format nil "~{~C~}"
                          (loop for char from 1 upto (1+ string-length)

@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defun html-escape (string)
   "Escapes < and & from strings for safe printing as HTML (text node) content."

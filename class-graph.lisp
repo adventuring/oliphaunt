@@ -1,5 +1,5 @@
 (defpackage :class-graph
-  (:use :cl :elephant))
+  (:use :cl :oliphaunt))
 
 (defun graph-class (class &key (filename 
                                 (substitute #\: #\/

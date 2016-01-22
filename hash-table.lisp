@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defmacro |hash| ((&rest params) plist-or-alist)
   (let ((alistp (and (consp (car plist-or-alist))

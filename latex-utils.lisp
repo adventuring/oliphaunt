@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defvar *tex-escape* '(("\\&" . "\\\\&")
                        ("\\$" . "\\\\$")

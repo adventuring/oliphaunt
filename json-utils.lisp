@@ -1,4 +1,4 @@
-(in-package :elephant)
+(in-package :oliphaunt)
 
 (defun plist-json (plist)
   (labels ((pre-jsonify (plist)
@@ -24,10 +24,10 @@
                                 (if (consp value)
                                     (post-plist value)
                                     value)))))
-    (post-plist (alist-plist (st-json::jso-alist )))))
+    #. (warn "incomplete function ~s" '(post-plist (alist-plist (st-json::jso-alist |...| ))))))
 
 
-(defmethod st-json:read-json ((null null) &optional junk-allowed-p)
+(defmethod st-json:read-json ((nul null) &optional junk-allowed-p)
   (declare (ignore junk-allowed-p))
   nil)
 
