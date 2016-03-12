@@ -2,6 +2,10 @@
 
 ;;; Handle reading Roman numerals (up to 4,999) to complement ~@:r
 
+(defun roman-numeral (stream number atp colonp)
+  (declare (ignore atp colonp))
+  (write-string (presentation-roman-numeral (format nil "~@r" number)) stream))
+
 (defun proper-roman-numeral (char)
   "Given an ASCII character, return the Unicode Roman numeral code-point
 that     it     resembles;     eg,      for     #\C     this     returns
@@ -58,7 +62,7 @@ that     it     resembles;     eg,      for     #\C     this     returns
     (#\ↀ 1000)
     (#\ↁ 5000) ; NB. Neither OLIPHAUNT nor SBCL:FORMAT ~:@R will write 5000+
     (#\ↂ 10000)
-    (#\ↁ 50000)
+    (#\ↇ 50000)
     (#\ↈ 100000)
     (nil nil)
     (otherwise (roman-numeral-value (proper-roman-numeral char)))))
