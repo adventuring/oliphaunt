@@ -17,3 +17,7 @@
             (loop for (key value) in plist-or-alist :by #'cddr
                collecting `(setf (gethash ,key h) ,value))))))
 
+(defmacro dohash (((key value) hash-table) &body body)
+  `(loop for ,key being each hash-key in ,hash-table using hash-value ,value
+      do (progn ,@body)))
+
