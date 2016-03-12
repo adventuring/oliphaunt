@@ -52,6 +52,7 @@
    (:file "latex-utils")
    (:file "latin-utils")
    (:file "html-utils")
+   (:file "math-utils")
    (:file "sql-utils")
    (:file "plist-utils")
    (:file "i18n+l10n")
