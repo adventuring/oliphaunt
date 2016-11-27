@@ -415,7 +415,7 @@ string. If the second value is negative, the string was truncated."
                 (warn "Using string interning for STRING-CASE of ~R cases"
                       *--interning-better-breakpoint*))
               (prog1
-                  #+sbcl GSLL:+POSITIVE-INFINITY+ #-sbcl most-positive-fixnum
+                  #+sbcl sb-ext:long-float-positive-infinity #-sbcl most-positive-fixnum
                   (warn "Disabling string interning on this platform"))))
         (flet ((make-random-string (string-length)
                  (format nil "~{~C~}"
