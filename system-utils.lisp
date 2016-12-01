@@ -1,18 +1,33 @@
 (in-package :oliphaunt)
 
+(defun asdf-system-dependencies (child)
+  (list*
+   (ignore-errors (slot-value (asdf:find-system child)
+                              'asdf::load-dependencies))
+   (ignore-errors (slot-value (asdf:find-system child)
+                              'asdf::depends-on))
+   (ignore-errors (slot-value (asdf:find-system child)
+                              'asdf::sideway-dependencies))))
+
+(defun asdf-dependency-system-name (parent system)
+  (cond
+    ((or (stringp system)
+         (symbolp system)) system)
+    ((and (listp system)
+          (eql :version (first system))
+          (or (stringp (second system))
+              (symbolp (second system))))
+     (second system))
+    (t (warn "Unrecognized kind of dependency: ~s for ~a" system parent))))
+
 (defun prerequisite-systems (&optional (child :romance-ii))
   (check-type child string-designator)
   (assert child)
   (if-let ((prereqs (remove-duplicates
                      (mapcar #'keywordify
                              (remove-if #'null
-                                        (list*
-                                         (ignore-errors (slot-value (asdf:find-system child)
-                                                                    'asdf::load-dependencies))
-                                         (ignore-errors (slot-value (asdf:find-system child)
-                                                                    'asdf::depends-on))
-                                         (ignore-errors (slot-value (asdf:find-system child)
-                                                                    'asdf::sideway-dependencies))))))))
+                                        (mapcar (curry #'asdf-dependency-system-name child)
+                                                (asdf-system-dependencies child)))))))
     (remove-if
      (lambda (sys)
        (member sys
@@ -33,49 +48,69 @@
                   :name (string-downcase (string system))
                   :type "txt")
    (or #+romans romans-compiler-setup:*path/r2project*
-       *load-truename*
-       *compile-file-truename*)))
+       (asdf:system-source-directory :romance-ii))))
+
+(defun sorted-prerequisite-systems (system)
+  (sort (prerequisite-systems system)
+        #'string<
+        :key (compose #'string-upcase #'string)))
+
+(defun asdf-system-sources (system)
+  (make-pathname
+   :directory (pathname-directory
+               (or (and system (asdf:system-source-directory system))
+                   #p"."))
+   :name :wild :type :wild))
+
+(defun find-manual-license-override (system)
+  (let ((override-file (manual-license-path system)))
+    (when (fad:file-exists-p override-file)
+      override-file)))
+
+(defun license-name-from-asdf (system)
+  (ignore-errors (slot-value (asdf:find-system system) 'asdf::licence)))
+
+(defun find-license-file-in-asdf-top-dir (asdf-dir)
+  (loop
+     for path in (directory asdf-dir)
+     when (member (make-keyword (string-upcase
+                                 (pathname-name path))) +license-words+)
+     return (pathname path)))
+
+(defun find-license-file-in-asdf-doc-dir (asdf-dir)
+  (loop
+     for path in (directory (merge-pathnames "doc/" asdf-dir))
+     when (member (make-keyword (string-upcase
+                                 (pathname-name path))) +license-words+)
+     return (pathname path)))
+
+(defun find-readme-file-in-asdf-dir (system asdf-dir)
+  (loop
+     for path in (directory asdf-dir)
+     when (member (make-keyword (string-upcase
+                                 (pathname-name path))) '(:readme))
+     return (prog1 (list system (pathname path))
+              (warn "No LICENSE for ~:(~A~), using README~%(in ~A)"
+                    system asdf-dir))))
+
+(defun find-some-license-info-for-system (system asdf-dir longp)
+  (or
+   (find-manual-license-override system)
+   (unless longp
+     (license-name-from-asdf system))
+   (when asdf-dir
+     (find-license-file-in-asdf-top-dir asdf-dir))
+   (when asdf-dir
+     (find-license-file-in-asdf-doc-dir asdf-dir))
+   (when longp
+     (license-name-from-asdf system))
+   (find-readme-file-in-asdf-dir system asdf-dir)))
 
 (defun find-copyrights (&optional (longp nil))
   (append
-   (loop for system in (sort (prerequisite-systems :romance-ii)
-                             #'string<
-                             :key (compose #'string-upcase #'string))
-      for asdf-dir = (make-pathname
-                      :directory (pathname-directory
-                                  (or (asdf:system-source-directory system)
-                                      #p"."))
-                      :name :wild :type :wild)
-      for license =
-        (or
-         (let ((override-file (manual-license-path system)))
-           (when (fad:file-exists-p override-file)
-             override-file))
-         (unless longp
-           (if-let ((license (ignore-errors
-                               (slot-value (asdf:find-system system) 'asdf::licence))))
-             license))
-         (loop
-            for path in (directory asdf-dir)
-            when (member (make-keyword (string-upcase
-                                        (pathname-name path))) +license-words+)
-            return (pathname path))
-         (loop
-            for path in (directory (merge-pathnames "doc/" asdf-dir))
-            when (member (make-keyword (string-upcase
-                                        (pathname-name path))) +license-words+)
-            return (pathname path))
-         (if longp
-             (if-let ((license (ignore-errors
-                                 (slot-value (asdf:find-system system) 'asdf::licence))))
-               license))
-         (loop
-            for path in (directory asdf-dir)
-            when (member (make-keyword (string-upcase
-                                        (pathname-name path))) '(:readme))
-            return (prog1 (list system (pathname path))
-                     (warn "No LICENSE for ~:(~A~), using README~%(in ~A)"
-                           system asdf-dir))))
+   (loop for system in (sorted-prerequisite-systems :romance-ii)
+      for asdf-dir = (asdf-system-sources system)
+      for license = (find-some-license-info-for-system system asdf-dir longp)
       when license collect (list system license)
       else collect (prog1 (list system nil)
                      (warn "No LICENSE for ~:(~A~)~%(in ~A );~%~TPlease find the license and insert it as ~a"
