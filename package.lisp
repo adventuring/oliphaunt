@@ -1,11 +1,11 @@
 (in-package :cl-user)
-(require #:alexandria)
-(require #:bordeaux-threads)
-(require #:split-sequence)
-(require #:cl-fad)
-(require #:local-time)
-(require #:cl-ppcre)
-(require #:parse-number)
+(require :alexandria)
+(require :bordeaux-threads)
+(require :split-sequence)
+(require :cl-fad)
+(require :local-time)
+(require :cl-ppcre)
+(require :parse-number)
 (require 'trivial-gray-streams)
 
 (defpackage :oliphaunt
@@ -518,7 +518,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    
    )) ; end of DEFPACKAGE form
 
-(require #:babel)
+(require :babel)
 
 (in-package :oliphaunt)
 
