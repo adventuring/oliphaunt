@@ -30,7 +30,6 @@
                :swank
                :trivial-garbage
                :trivial-gray-streams
-               :trivial-types
                :usocket
                #+old-wordnet :wordnet
 

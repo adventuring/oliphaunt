@@ -12,7 +12,7 @@
   (:use #:alexandria #:bordeaux-threads
         #:cl #:cl-fad #:cl-ppcre
         #:local-time #:split-sequence #:parse-number
-        #:trivial-gray-streams #:trivial-types)
+        #:trivial-gray-streams)
   (:nicknames :romans :romance-ii :romance2)
   (:shadowing-import-from #:cl-fad #:copy-file #:copy-stream) ; conflicts with Alexandria.
   (:shadowing-import-from #+sbcl #:sb-int
