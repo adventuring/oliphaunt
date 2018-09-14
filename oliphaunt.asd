@@ -22,7 +22,6 @@
                :langutils
                :local-time
                :parse-number
-               :postmodern
                :prepl
                :split-sequence
                :sqlite
