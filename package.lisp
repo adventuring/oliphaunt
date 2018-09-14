@@ -6,7 +6,7 @@
 (require :local-time)
 (require :cl-ppcre)
 (require :parse-number)
-(require 'trivial-gray-streams)
+(require :trivial-gray-streams)
 
 (defpackage :oliphaunt
   (:use #:alexandria #:bordeaux-threads
@@ -16,14 +16,14 @@
   (:nicknames :romans :romance-ii :romance2)
   (:shadowing-import-from #:cl-fad #:copy-file #:copy-stream) ; conflicts with Alexandria.
   (:shadowing-import-from #+sbcl #:sb-int
-   #+ccl #:ccl
-   #-(or sbcl ccl)
-   (warn-impl simple-file-error
-              "The SIMPLE-FILE-ERROR condition type must be imported into
+                          #+ccl #:ccl
+                          #-(or sbcl ccl)
+                          (warn-impl simple-file-error
+                                     "The SIMPLE-FILE-ERROR condition type must be imported into
 the ROMANCE package. It is probably in your compiler's INT or EXT
 package (or similar). Perhaps it's even named the same? Try (APROPOS
 \"SIMPLE-FILE-ERROR\").")
-   #:simple-file-error)
+                          #:simple-file-error)
   (:documentation
    "Common code used by some of my projects")
   (:export
@@ -185,7 +185,6 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    alexandria:ensure-list
    alexandria:ensure-symbol
    alexandria:eswitch
-   alexandria:extremum
    alexandria:factorial
    alexandria:featurep
    alexandria:first-elt
@@ -425,9 +424,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    local-time:+days-per-week+
    local-time:+gmt-zone+
    local-time:+hours-per-day+
-   local-time:+iso-8601-date-format+
    local-time:+iso-8601-format+
-   local-time:+iso-8601-time-format+
    local-time:+iso-week-date-format+
    local-time:+minutes-per-day+
    local-time:+minutes-per-hour+
@@ -465,7 +462,6 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    local-time:nsec-of
    local-time:parse-rfc3339-timestring
    local-time:parse-timestring
-   local-time:reread-timezone-repository
    local-time:sec-of
    local-time:time-of-day
    local-time:timestamp
