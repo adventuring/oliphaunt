@@ -18,6 +18,8 @@
                collecting `(setf (gethash ,key h) ,value))))))
 
 (defmacro dohash (((key value) hash-table) &body body)
-  `(loop for ,key being each hash-key in ,hash-table using hash-value ,value
+  `(loop for ,key in (hash-table-keys ,hash-table)
+      for ,value = (gethash ,key ,hash-table)
       do (progn ,@body)))
+
 
