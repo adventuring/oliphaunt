@@ -14,7 +14,7 @@
 (define-condition language-not-implemented-warning (warning)
   ((language :initarg :language :reader language-not-implemented)
    (fn :initarg :function :reader language-not-implemented-function))
-  (:report (lambda (s c)
+  (:report (lambda (c s)
              (format s "There is not an implementation of ƒ ~A for language ~A ~@[~{~*(~A/~A)~}~]"
                      (slot-value c 'fn)
                      (slot-value c 'language)
