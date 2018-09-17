@@ -513,9 +513,9 @@ Example:
      (mapcar #'lc-string-syms token))
     (t (string-downcase (princ-to-string token)))))
 
-(defmacro @$ (&rest list-of-strings)
-  "Typically  used to  provide a  list of  strings as  symbols; returns  them as  downcased strings.  Similar to  Perl's
-qw// operator."
+(defmacro $$$ (&rest list-of-strings)
+  "Typically used to provide a list  of strings as symbols; returns them
+as downcased strings. Similar to Perl's qw// operator."
   (list 'quote (mapcar #'lc-string-syms list-of-strings)))
 
 (defun char-string (char)
