@@ -22,8 +22,10 @@
 
 (defmacro defun-lang (function (&rest lambda-list) &body bodies)
   (let ((underlying (intern (concatenate 'string (string function) "%"))))
+    #+test-i18n
+    
     (let ((implemented (mapcar #'car bodies)))
-      (unless (every (lambda (language) (member language implemented))
+      (unless (every (rcurry #'member implemented)
                      (mapcar #'car +language-names+))
         (warn "Defining ƒ ~A with partial language support: ~{~{~%  • ~5A: ~20A ~:[ ✗ ~; ✓ ~]~}~}"
               function
@@ -32,6 +34,7 @@
                               (third language)
                               (member (car language) implemented)))
                       +language-names+))))
+    
     `(progn
        (defgeneric ,underlying (language ,@lambda-list)
          ,@(mapcar (lambda (body)
@@ -63,43 +66,43 @@
 ;;; Genders of words which cannot be guessed by their declensions
 
 (defvar irish-gender-dictionary (make-hash-table :test 'equal))
-(dolist (word (@$ adharc  baintreach  báisteach  buíon  caor  cearc
-                  ciall  cloch  cos  craobh  críoch  cros  dámh
-                  dealbh  eangach  fadhb  fearg  ficheall  fréamh
-                  gaoth  géag  gealt  girseach  grian  iall  iníon
-                  lámh  leac  long  luch  méar  mian  mias  muc
-                  nead  pian  sceach  scian  scornach  slat
-                  sluasaid  srón  téad  tonn  ubh banríon  Cáisc
-                  cuid  díolaim  Eoraip  feag  feoil  muir  scread
-                  rogha teanga bearna veain beach))
+(dolist (word ($$$ adharc baintreach báisteach buíon caor cearc
+                   ciall cloch cos craobh críoch cros dámh
+                   dealbh eangach fadhb fearg ficheall fréamh
+                   gaoth géag gealt girseach grian iall iníon
+                   lámh leac long luch méar mian mias muc
+                   nead pian sceach scian scornach slat
+                   sluasaid srón téad tonn ubh banríon Cáisc
+                   cuid díolaim Eoraip feag feoil muir scread
+                   rogha teanga bearna veain beach))
   (setf (gethash word irish-gender-dictionary) :f))
-(dolist (word (@$ am anam áth béas bláth cath cíos cith
-                  crios dath dream droim eas fíon flaith
-                  greim loch lus luach modh rámh rang
-                  rás roth rud sioc taom teas tréad
-                  im sliabh   ainm máistir seans club dlí
-                  rince coláiste))
+(dolist (word ($$$ am anam áth béas bláth cath cíos cith
+                   crios dath dream droim eas fíon flaith
+                   greim loch lus luach modh rámh rang
+                   rás roth rud sioc taom teas tréad
+                   im sliabh ainm máistir seans club dlí
+                   rince coláiste))
   (setf (gethash word irish-gender-dictionary) :m))
 
 
 (defvar irish-declension-dictionary (make-hash-table :test 'equal))
-(dolist (word (@$ im sliabh
-                  adharc baintreach báisteach buíon caor cearc ciall
-                  cloch cos craobh críoch cros dámh dealbh eangach
-                  fadhb fearg ficheall fréamh gaoth géag gealt
-                  girseach grian iall iníon lámh leac long luch
-                  méar mian mias muc nead pian sceach scian
-                  scornach slat sluasaid srón téad tonn ubh))
+(dolist (word ($$$ im sliabh
+                   adharc baintreach báisteach buíon caor cearc ciall
+                   cloch cos craobh críoch cros dámh dealbh eangach
+                   fadhb fearg ficheall fréamh gaoth géag gealt
+                   girseach grian iall iníon lámh leac long luch
+                   méar mian mias muc nead pian sceach scian
+                   scornach slat sluasaid srón téad tonn ubh))
   (setf (gethash word irish-declension-dictionary) 2))
-(dolist (word (@$  am anam áth béas bláth cath cíos cith crios
+(dolist (word ($$$ am anam áth béas bláth cath cíos cith crios
                    dath dream droim eas fíon flaith greim
                    loch lus luach modh rámh rang rás roth rud
                    sioc taom teas tréad
                    banríon Cáisc cuid díolaim Eoraip
                    feag feoil muir scread))
   (setf (gethash word irish-declension-dictionary) 3))
-(dolist (word (@$  rogha teanga bearna ainm máistir seans
-                   club veain dlí rince))
+(dolist (word ($$$  rogha teanga bearna ainm máistir seans
+                    club veain dlí rince))
   (setf (gethash word irish-declension-dictionary) 4))
 
 (defvar english-gender-dictionary (make-hash-table :test 'equal))
@@ -157,11 +160,11 @@
   (:ga (or (gethash (string-downcase noun) irish-gender-dictionary)
            (string-ends-with-case noun
              (("e" "í") :f)
-             ((@$ a o e u i
-                  á ó é ú í
-                  ín) :m)
-             ((@$ áil úil ail úint cht irt) :f)
-             ((@$ éir eoir óir úir) :m)
+             (($$$ a o e u i
+                   á ó é ú í
+                   ín) :m)
+             (($$$ áil úil ail úint cht irt) :f)
+             (($$$ éir eoir óir úir) :m)
              (("óg" "eog" "lann") :f)
              (otherwise
               (if (irish-broad-ending-p noun)
@@ -403,11 +406,11 @@
           (when gender
             (setf (gethash (latin-normalize nom) latin-gender-dictionary) gender)))))))
 
-(let ((words (@$ aidiacht aiste anáil bacach bád bádóir
-                 báicéir baincéir bainis béal buidéal caint
-                 cat céad ceadúnas ceann ceart cinnúint
-                 cléreach cliabh cogadh coileach coláiste
-                 comhairle deis dochtúir))
+(let ((words ($$$ aidiacht aiste anáil bacach bád bádóir
+                  báicéir baincéir bainis béal buidéal caint
+                  cat céad ceadúnas ceann ceart cinnúint
+                  cléreach cliabh cogadh coileach coláiste
+                  comhairle deis dochtúir))
       (genders (list :f :f :f :m :m
                      :m :m :m :f :m :m
                      :f :m :m :m :m :m
@@ -710,11 +713,11 @@ Note that LEATHNÚ applies this to the final consonant, instead."
 
 (defun-lang diphthongp (letters)
   (:en (member (string-downcase letters)
-               (@$ ow ou ie igh oi oo ea ee ai) :test #'string-beginning))
+               ($$$ ow ou ie igh oi oo ea ee ai) :test #'string-beginning))
   (:la (member (string-downcase letters)
-               (@$ ae au ai ou ei) :test #'string-beginning))
+               ($$$ ae au ai ou ei) :test #'string-beginning))
   (:ga (member (string-downcase letters)
-               (@$ ae eo ao abh amh agh adh)
+               ($$$ ae eo ao abh amh agh adh)
                :test #'string-beginning)))
 
 (defun vowelp (letter)
@@ -936,18 +939,18 @@ Note that LEATHNÚ applies this to the final consonant, instead."
 
 (defvar english-defective-plurals (make-hash-table :test 'equal)
   "Words with no actual plural forms")
-(dolist (word (@$ bison buffalo deer duck fish moose
-                  pike plankton salmon sheep squid swine
-                  trout algae marlin
-                  furniture information
-                  cannon blues iris cactus
-                  meatus status specie
-                  benshi otaku samurai
-                  kiwi kowhai Māori Maori
-                  marae tui waka wikiwiki
-                  Swiss Québécois omnibus
-                  Cherokee Cree Comanche Delaware Hopi
-                  Iroquois Kiowa Navajo Ojibwa Sioux Zuni))
+(dolist (word ($$$ bison buffalo deer duck fish moose
+                   pike plankton salmon sheep squid swine
+                   trout algae marlin
+                   furniture information
+                   cannon blues iris cactus
+                   meatus status specie
+                   benshi otaku samurai
+                   kiwi kowhai Māori Maori
+                   marae tui waka wikiwiki
+                   Swiss Québécois omnibus
+                   Cherokee Cree Comanche Delaware Hopi
+                   Iroquois Kiowa Navajo Ojibwa Sioux Zuni))
   (setf (gethash word english-defective-plurals) word))
 
 (defvar english-irregular-plurals (make-hash-table :test 'equal)
@@ -1048,7 +1051,7 @@ well enough for many (most) English words. At least, an improvement upon
                      ("s" (lessen 1))
                      (otherwise s)))))))
 
-(loop for (sing pl) on (@$
+(loop for (sing pl) on ($$$
                         person-in-place people-in-places
                         country countries
                         monkey monkeys
@@ -1105,34 +1108,34 @@ well enough for many (most) English words. At least, an improvement upon
 
 ;;; Make sure that we create correct plural forms
 (defun post-irish-plurals ()
-  (let ((singulars (@$ bád fear béal íasc síol bacach taoiseach gaiscíoch
-                       deireadh saol
-                       beach bos scornach eaglais aisling
-                       cainteoir gnólacht tincéir am
-                       adhmáil beannacht ban-aba canúint droim
-                       bata ciste cailín runaí rí bus
-                       ordú cruinniú
-                       bearna féile
-                       aidiacht aiste anáil bacach bádóir
-                       báicéir baincéir bainis béal buidéal caint
-                       cat céad ceadúnas ceann ceart cinnúint
-                       cléreach cliabh cogadh coileach coláiste
-                       comhairle deis dochtúir
-                       súil deoir cuibreach))
-        (plurals (@$ báid fir béil éisc síl bacaigh taoisigh gaiscigh
-                     deirí saolta
-                     beacha bosa scornacha eaglaisí aislingí
-                     cainteorí gnólachtaí tincéirí amanna
-                     admhálacha beannachtaí ban-abaí canúintí dromanna
-                     bataí cistí cailíní runaithe rithe busanna
-                     orduíthe cruinnithe
-                     bearnaí féilte
-                     aidiachta aiste anála bacaigh bádóra báiceára
-                     baincéara bainise béil buidéil cainte cait céid
-                     ceadúnais cinn cirt cinniúna clérigh
-                     cléibh cogaidh coiligh coláiste
-                     comhairle deise dochtúra
-                     súila deora cubraigha)))
+  (let ((singulars ($$$ bád fear béal íasc síol bacach taoiseach gaiscíoch
+                        deireadh saol
+                        beach bos scornach eaglais aisling
+                        cainteoir gnólacht tincéir am
+                        adhmáil beannacht ban-aba canúint droim
+                        bata ciste cailín runaí rí bus
+                        ordú cruinniú
+                        bearna féile
+                        aidiacht aiste anáil bacach bádóir
+                        báicéir baincéir bainis béal buidéal caint
+                        cat céad ceadúnas ceann ceart cinnúint
+                        cléreach cliabh cogadh coileach coláiste
+                        comhairle deis dochtúir
+                        súil deoir cuibreach))
+        (plurals ($$$ báid fir béil éisc síl bacaigh taoisigh gaiscigh
+                      deirí saolta
+                      beacha bosa scornacha eaglaisí aislingí
+                      cainteorí gnólachtaí tincéirí amanna
+                      admhálacha beannachtaí ban-abaí canúintí dromanna
+                      bataí cistí cailíní runaithe rithe busanna
+                      orduíthe cruinnithe
+                      bearnaí féilte
+                      aidiachta aiste anála bacaigh bádóra báiceára
+                      baincéara bainise béil buidéil cainte cait céid
+                      ceadúnais cinn cirt cinniúna clérigh
+                      cléibh cogaidh coiligh coláiste
+                      comhairle deise dochtúra
+                      súila deora cubraigha)))
     (let ((computed (loop for s in singulars
                        collecting (plural% :ga 2 s))))
 
@@ -1152,52 +1155,52 @@ well enough for many (most) English words. At least, an improvement upon
 
 (define-constant spanish-numbers
     (mapplist (key value)
-        (@$ 1 uno
-            2 dos
-            3 tres
-            4 cuatro
-            5 cinco
-            6 seis
-            7 siete
-            8 ocho
-            9 nueve
-            10 diez
-            11 once
-            12 doce
-            13 trece
-            14 catorce
-            15 quince
-            16 dieciséis
-            17 diecisiete
-            18 dieciocho
-            19 diecinueve
-            20 veinte
-            21 veintiuno
-            22 veintidós
-            23 veintitrés
-            24 veinticuatro
-            25 veinticinco
-            26 veintiséis
-            27 veintisiete
-            28 veintiocho
-            29 veintinueve
-            30 treinta
-            40 cuarenta
-            50 cincuenta
-            60 sesenta
-            70 setenta
-            80 ochenta
-            90 noventa
-            100 cien ;; ciento +
-            200 doscientos
-            300 trescientos
-            400 cuatrocientos
-            500 quinientos
-            600 seiscientos
-            700 setecientos
-            800 ochocientos
-            900 novecientos
-            1000 mil)
+        ($$$ 1 uno
+             2 dos
+             3 tres
+             4 cuatro
+             5 cinco
+             6 seis
+             7 siete
+             8 ocho
+             9 nueve
+             10 diez
+             11 once
+             12 doce
+             13 trece
+             14 catorce
+             15 quince
+             16 dieciséis
+             17 diecisiete
+             18 dieciocho
+             19 diecinueve
+             20 veinte
+             21 veintiuno
+             22 veintidós
+             23 veintitrés
+             24 veinticuatro
+             25 veinticinco
+             26 veintiséis
+             27 veintisiete
+             28 veintiocho
+             29 veintinueve
+             30 treinta
+             40 cuarenta
+             50 cincuenta
+             60 sesenta
+             70 setenta
+             80 ochenta
+             90 noventa
+             100 cien ;; ciento +
+             200 doscientos
+             300 trescientos
+             400 cuatrocientos
+             500 quinientos
+             600 seiscientos
+             700 setecientos
+             800 ochocientos
+             900 novecientos
+             1000 mil)
       (list (parse-integer key) value))
   :test 'equal)
 
@@ -1271,8 +1274,9 @@ well enough for many (most) English words. At least, an improvement upon
   (:ga string))
 
 (defun-lang pluralp (string)
-
-  )
+  (:en (char-equal (last-elt string) #\s))
+  (:es (char-equal (last-elt string) #\s))
+  (:fr (char-equal (last-elt string) #\s)))
 
 (defun-lang -the- (string)
   (:la string)
@@ -1294,7 +1298,8 @@ well enough for many (most) English words. At least, an improvement upon
                                                  "l'"
                                                  "le "))
                                    (:f "la "))))) string))
-  (:ga string))
+  (:ga (concatenate 'string (funcall (letter-case string) "an ")
+                    string)))
 
 
 (defun-lang a/an/some (count string)
@@ -1312,6 +1317,7 @@ well enough for many (most) English words. At least, an improvement upon
                                  (plural% :fr count string)))))
   (:ga (plural% :ga count string)))
 
-;;; Credit for Irish  language test cases to  Irish language documents by Amy  de Buitléir, CC-BY 3.0  license, found at
-;;; http://unaleargais.ie/foghlaim/ … http://creativecommons.org/licenses/by/3.0/
-
+;;; Credit for Irish language test  cases to Irish language documents by
+;;; Amy    de     Buitléir,    CC-BY     3.0    license,     found    at
+;;; http://unaleargais.ie/foghlaim/                                    …
+;;; http://creativecommons.org/licenses/by/3.0/
