@@ -14,6 +14,7 @@
      (apply #'st-json:jso (pre-jsonify plist)))))
 
 
+#+(or)
 (defun json-plist (string)
   (labels ((post-plist (plist)
              (loop for (key value) on plist by #'cddr
