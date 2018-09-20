@@ -48,7 +48,7 @@ with the same `place'"
 
 (defun make-t-every-n-times (base)
   "Returns a function which, every \"N\" times that it is called,
-  returns true."
+ returns true."
   (let ((private 0))
     (lambda ()
       (modincf private base))))
@@ -79,7 +79,7 @@ with the same `place'"
 
 
 
-(defmacro with-do-over-restart ((&optional (tag :do-over) 
+(defmacro with-do-over-restart ((&optional (tag :do-over)
                                            (label "Retry this form")
                                            &rest format-args) &body body)
   (with-gensyms (do-over-tag)
@@ -180,9 +180,9 @@ eg: (take-if 5 #'digit-char-p \" a 1 b 2 c 3 d 4 e 5 f 6 g 7\") ⇒ \"12345\""
          (coerce (let ((first (elt source 0))
                        (rest (subseq source 1)))
                    (if (funcall predicate first)
-                       (concatenate (base-type-of source) 
+                       (concatenate (base-type-of source)
                                     (vector first)
-                                    (take-if (1- count) predicate rest)) 
+                                    (take-if (1- count) predicate rest))
                        (take-if count predicate rest)))
                  (base-type-of source)))
         (t (let ((this (funcall source)))
@@ -201,4 +201,3 @@ eg: (take-if 5 #'digit-char-p \" a 1 b 2 c 3 d 4 e 5 f 6 g 7\") ⇒ \"12345\""
            (constantp item))
       (cons 'list (make-list count :initial-element item))
       form))
-

@@ -63,15 +63,15 @@
     (princ-to-string (* 1.0 object)))
   (:method ((object vector))
     (format nil (concatenate
-                 'string 
-                 "[~{~<~%" *json-pretty-indent* "~1:;~/json/~>~^, ~}]") 
+                 'string
+                 "[~{~<~%" *json-pretty-indent* "~1:;~/json/~>~^, ~}]")
             (coerce object 'list)))
-  
+
   (:method ((object cons))
     (if (plist-p object)
-        (format nil (concatenate 
+        (format nil (concatenate
                      'string
-                     "{~{~<~%" *json-pretty-indent* "~1:;~/json/: ~/json/~>~^, ~}}") 
+                     "{~{~<~%" *json-pretty-indent* "~1:;~/json/: ~/json/~>~^, ~}}")
                 object)
         (->json (coerce object 'vector))))
   (:method ((object t))
@@ -83,4 +83,3 @@
   (assert (null parameters))
   (let ((*json-pretty-indent* (concatenate 'string *json-pretty-indent* "     ")))
     (princ (->json object) stream)))
-

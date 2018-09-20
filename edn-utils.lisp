@@ -1,19 +1,20 @@
 (in-package :oliphaunt)
 
-;;; EDN output (to Clojure) 
+;;; EDN output (to Clojure)
 (defun schemey-record (record)
   "Convert  a  plist into  a  sort  that Scheme/Clojure  would  like,  probably with  some  crap  being translated  from
 MySQL crap."
   (mapplist (key value) record
-            (list (make-keyword (field-?-p key))
-                  (if (and (char= #\? (last-elt (string (field-?-p key))))
-                           (member value '(1 0 t nil)))
-                      (case value
-                        ((0 nil) :false)
-                        ((1 t) :true))
-                      value))))
+    (list (make-keyword (field-?-p key))
+          (if (and (char= #\? (last-elt (string (field-?-p key))))
+                   (member value '(1 0 t nil)))
+              (case value
+                ((0 nil) :false)
+                ((1 t) :true))
+              value))))
 
-;;; NB. JSON seems easier to work with, with ClojureScript, so this isn't actually being used right now.
+;;; NB.  JSON seems  easier to  work with,  with ClojureScript,  so this
+;;; isn't actually being used right now.
 (defvar *edn-pretty-indent* "  ")
 
 (defgeneric ->edn (object)
@@ -21,7 +22,7 @@ MySQL crap."
   (:method ((object (eql :true))) "true")
   (:method ((object (eql :false))) "false")
   (:method ((object null)) "nil")
-  (:method ((object symbol)) (concatenate 'string #(#\:) 
+  (:method ((object symbol)) (concatenate 'string #(#\:)
                                           (string-downcase (symbol-name object))))
   (:method ((object string)) (concatenate 'string
                                           #(#\")
@@ -31,12 +32,12 @@ MySQL crap."
   (:method ((object real)) (princ-to-string (* 1.0 object)))
   (:method ((object vector))
     (format nil
-            (concatenate 'string 
+            (concatenate 'string
                          "[~<~%" *edn-pretty-indent* "~1:;~{~/edn/~>~^, ~}]")
             (coerce object 'list)))
-  (:method ((object list)) 
+  (:method ((object list))
     (if (plist-p object)
-        (format nil (concatenate 'string 
+        (format nil (concatenate 'string
                                  "{~<~%" *edn-pretty-indent* "~1:;~{~/edn/ ~/edn/~>~^, ~}}")
                 object)
         (->edn (coerce object 'vector)))))

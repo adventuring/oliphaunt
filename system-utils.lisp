@@ -137,7 +137,7 @@ This program is free software: you may use, modify, and/or distribute it
  *ONLY* in accordance with the terms of the GNU Affero General Public License
  (GNU AGPL).
 
-   ★ Romance Ⅱ uses libraries which have their own licenses. ★
+ ★ Romance Ⅱ uses libraries which have their own licenses. ★
 
 "
    (unless longp "(Abbreviated:)
@@ -167,21 +167,21 @@ Romance Ⅱ uses the library ~@:(~A~)~2%"
 
 Romance Ⅱ itself is a program.
 
-    Romance Game System Copyright © 1987-2015, Bruce-Robert Fenn Pocock;
+ Romance Game System Copyright © 1987-2015, Bruce-Robert Fenn Pocock;
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public
-    License along with this program.  If not, see
-    http://www.gnu.org/licenses/ ."
+ You should have received a copy of the GNU Affero General Public
+ License along with this program.  If not, see
+ http://www.gnu.org/licenses/ ."
        ;; short version
        "
 See COPYING.AGPL3 or run “romance --copyright” for details.
@@ -196,8 +196,8 @@ Please add an implementation to the file:
 ~a
 git
  … with an appropriate #+(feature) tag to identify it, or contact the Romans
-   development team, and we may be able to help. Your *FEATURES* contains the
-   following:
+ development team, and we may be able to help. Your *FEATURES* contains the
+ following:
 ~s
 "
          ',symbol
@@ -205,5 +205,3 @@ git
          ,message
          (or *compile-file-truename* *load-truename*)
          *features*))
-
-

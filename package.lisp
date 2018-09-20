@@ -34,7 +34,6 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:+utf-8+
    #:+utf8+
    #:+whitespace+
-   #:+utf-8+
    #:a/an
    #:36r
    #:a/an/some

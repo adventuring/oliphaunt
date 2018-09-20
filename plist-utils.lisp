@@ -9,11 +9,11 @@ Typically used to rebuild a plist by returning lists with new key/value pairs."
 (defun plist-keys (plist)
   "Return the keys of a plist"
   (mapplist (key _) plist
-            (list key)))
+    (list key)))
 
 (defun plist-values (object)
   (mapplist (_ value) object
-            (list value)))
+    (list value)))
 
 (defun plist-p (object)
   "Guesses whether OBJECT  is a plist. The  heuristic tests that this  is a list of  an even number of  objects, and the
@@ -30,8 +30,8 @@ but it's an extremely useful approximation."
 The default TEST is `IDENTITY', which causes key/value pairs when the value is NIL."
   (check-type test funcallable)
   (mapplist (key value) plist
-            (when (funcall test value)
-              (list key value))))
+    (when (funcall test value)
+      (list key value))))
 
 (defun groups-of (list count)
   "Batch the given list into groups, each of which are COUNT in length."
