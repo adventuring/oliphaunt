@@ -10,7 +10,7 @@
   (:export #:help #:hello #:bye))
 
 
-;; Don't be rude: We only claim the nickname USER if nobody else has
+;; Don't be  rude: We only  claim the nickname  USER if nobody  else has
 ;; lain claim to it before us.
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (unless (find-package "USER")
@@ -57,7 +57,7 @@ various types of connection.
 ")
 (defmethod repl-help ((keyword (eql :intro))) "
 
-             Romance Ⅱ Read-Eval-Print-Loop (REPL) Help
+ Romance Ⅱ Read-Eval-Print-Loop (REPL) Help
 
 CAUTION: Joining a live game world with this REPL is godlike power. Be
 very careful.
@@ -65,17 +65,17 @@ very careful.
  • For help with using the REPL, type :HELP or (HELP :REPL)
 
  • For copyright information, type (COPYRIGHTS) for brief,
-   or (COPYRIGHTS T) for full details.
+ or (COPYRIGHTS T) for full details.
 
  • If you enter the debugger, and are presented with some restarts,
-   choose a restart with :CONTINUE (restart) from the list
-   presented. (The debugger prompt has a preceding number, usually [1],
-   before your package prompt.) You can also use :ABORT to kill the
-   function you had started and return to the REPL. — e.g. to choose
-   restart [1], you would type: :CONTINUE 1 (with the leading \":\")
+ choose a restart with :CONTINUE (restart) from the list
+ presented. (The debugger prompt has a preceding number, usually [1],
+ before your package prompt.) You can also use :ABORT to kill the
+ function you had started and return to the REPL. — e.g. to choose
+ restart [1], you would type: :CONTINUE 1 (with the leading \":\")
 
  • Use (HELP :COMM) to learn  about communicating with other operators
-   through the REPL.
+ through the REPL.
 
  • Use (HELP :SYSOP) to learn about systems administration tasks.
 
@@ -98,9 +98,9 @@ expect some “arguments,” i.e. values, on which to operate, and return a
 value to you. In Lisp's notation, each form is surrounded with
 parentheses, like this:
 
-     (help :intro)
-     (+ 5 9)
-     (string-downcase \"SOMETHING\")
+ (help :intro)
+ (+ 5 9)
+ (string-downcase \"SOMETHING\")
 
 ~|
 
@@ -207,21 +207,21 @@ If you're totally lost here, try (HELP :START)
                              asdf:system-defsystem-depends-on
                              asdf:system-depends-on
                              asdf:system-weakly-depends-on
-                             asdf:system-source-control 	
+                             asdf:system-source-control
                              asdf:system-source-directory
                              asdf:system-source-file)
-                for val = (funcall fun system)
-                when val
-                  appending (list (subseq (symbol-name fun) 7)
-                                  val))))
+             for val = (funcall fun system)
+             when val
+             appending (list (subseq (symbol-name fun) 7)
+                             val))))
 
 (defun print-package-info (package)
   (format t "~&~|~% ~:@(~A~) is a package, which exports these symbols:~%"
           word)
-  (let ((package-symbols 
-          (sort (loop for sym being the external-symbols of package
-                      collect sym) #'string< :key #'symbol-name)))
-    (when-let ((bound (remove-if-not #'boundp package-symbols))) 
+  (let ((package-symbols
+         (sort (loop for sym being the external-symbols of package
+                  collect sym) #'string< :key #'symbol-name)))
+    (when-let ((bound (remove-if-not #'boundp package-symbols)))
       (format t "~% Values bound in package ~A:~{~%   ~32A~^ ~32A~}~%"
               word
               bound))
@@ -236,8 +236,8 @@ If you're totally lost here, try (HELP :START)
               word
               unbound))))
 
-(defmacro help (&optional (word :intro)) 
-  (typecase word 
+(defmacro help (&optional (word :intro))
+  (typecase word
     (keyword
      (romans::repl-help word))
     (string
@@ -246,26 +246,26 @@ If you're totally lost here, try (HELP :START)
      (ql:system-apropos word))
     (t (when (swank:connection-info)
          (ignore-errors
-          (swank:eval-in-emacs
-           `(ignore-errors
-             (slime-hyperspec-lookup ,(string word))))))
-     (when (symbolp word)
-       (describe word)
-       ;; (describe-object word t)
-       (when (boundp word)
-         (format t "~&Bound: The ~[current~;constant~] value is ~:D"
-                 (constantp word)
-                 (symbol-value word)))
-       (dolist (doc-type '(variable function structure type setf t))
-         (when-let ((info (without-warnings (documentation word doc-type))))
-           (format t "~&~%Documentation of the ~(~A~) ~S:~%~A~%"
-                   doc-type word info))))
+           (swank:eval-in-emacs
+            `(ignore-errors
+               (slime-hyperspec-lookup ,(string word))))))
+       (when (symbolp word)
+         (describe word)
+         ;; (describe-object word t)
+         (when (boundp word)
+           (format t "~&Bound: The ~[current~;constant~] value is ~:D"
+                   (constantp word)
+                   (symbol-value word)))
+         (dolist (doc-type '(variable function structure type setf t))
+           (when-let ((info (without-warnings (documentation word doc-type))))
+             (format t "~&~%Documentation of the ~(~A~) ~S:~%~A~%"
+                     doc-type word info))))
 
-     (when-let ((system (asdf:find-system word nil)))
-       (print-asdf-system-info system))
-     
-     (when-let ((package (find-package (string word))))
-       (print-package-info package)))))
+       (when-let ((system (asdf:find-system word nil)))
+         (print-asdf-system-info system))
+
+       (when-let ((package (find-package (string word))))
+         (print-package-info package)))))
 
 (defmacro hello (name)
   (let ((named (typecase name
@@ -281,4 +281,3 @@ If you're totally lost here, try (HELP :START)
 (defun spy (&rest args)
   ;; package RAHAB isn't available yet at compile-time
   (apply (intern "SPY" (find-package "RAHAB")) args))
-

@@ -87,7 +87,7 @@
        (let ((read-syntax (intern (string-upcase (string (read stream)))
                                   :keyword)))
          (case read-syntax
-           
+
            (otherwise (warn "EDN extended read-syntax “~a” is not supported; ignoring: ~s"
                             read-syntax (read stream))
                       nil)))))))
@@ -138,4 +138,3 @@
 
 (defun read-edn (stream)
   (with-edn (read stream)))
-

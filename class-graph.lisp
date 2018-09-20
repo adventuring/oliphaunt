@@ -16,7 +16,7 @@
               (print-relations subclass (1- depth)))
             (closer-mop:class-direct-subclasses class))))
 
-(defun graph-class (class &key (filename 
+(defun graph-class (class &key (filename
                                 (substitute #\: #\/
                                             (string (class-name class))))
                                (depth 3)
@@ -33,7 +33,7 @@
             (closer-mop:class-direct-superclasses class))
     (mapcar (lambda (slot)
               (format *dot* "  \"~:(~A~)\" -> \"~:(~A~)\" [style: dotted];
-  \"~:(~A~)\" -> \"~:(~A~)\" [style: dashed; color: blue];~%"
+ \"~:(~A~)\" -> \"~:(~A~)\" [style: dashed; color: blue];~%"
                       (class-name class)
                       (closer-mop:slot-definition-name slot)
                       (closer-mop:slot-definition-name slot)

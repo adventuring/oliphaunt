@@ -23,7 +23,7 @@
 (defmacro defun-lang (function (&rest lambda-list) &body bodies)
   (let ((underlying (intern (concatenate 'string (string function) "%"))))
     #+test-i18n
-    
+
     (let ((implemented (mapcar #'car bodies)))
       (unless (every (rcurry #'member implemented)
                      (mapcar #'car +language-names+))
@@ -34,7 +34,7 @@
                               (third language)
                               (member (car language) implemented)))
                       +language-names+))))
-    
+
     `(progn
        (defgeneric ,underlying (language ,@lambda-list)
          ,@(mapcar (lambda (body)

@@ -4,8 +4,8 @@
   "Escapes < and & from strings for safe printing as HTML (text node) content."
   (regex-replace-pairs '(("\\&" . "&amp;")
                          ("\\<" . "&lt;")) (typecase string
-                                             (string string)
-                                             (t (princ-to-string string)))))
+                         (string string)
+                         (t (princ-to-string string)))))
 
 (defun condition->html (c)
   "Formats a condition object as (relatively) pretty HTML."
@@ -31,4 +31,3 @@
     (integer (princ (html-escape (format nil "~d" object)) stream))
     (condition (princ (condition->html object) stream))
     (t (princ (html-escape (princ-to-string object)) stream))))
-

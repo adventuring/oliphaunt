@@ -107,8 +107,8 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:while
    #:with-do-over-restart
    #:without-warnings
-   
-      ;;; Symbols from other libraries
+ 
+ ;;; Symbols from other libraries
    ;; There is a very lengthy set of library functions that we want to
    ;; use without package prefixes in all of our other packages. As
    ;; such, they're exported here from their original packages. In other
@@ -511,7 +511,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    trivial-gray-streams:stream-write-char
    trivial-gray-streams:stream-write-sequence
    trivial-gray-streams:stream-write-string
-   
+
    )) ; end of DEFPACKAGE form
 
 (require :babel)
@@ -519,4 +519,3 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
 (in-package :oliphaunt)
 
 (defvar +utf-8+ (flexi-streams:make-external-format :utf8 :eol-style :lf))
-
