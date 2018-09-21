@@ -37,6 +37,8 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:36r
    #:a/an/some
    #:any
+   #:blank-string
+   #:blank-string-p
    #:collect-file
    #:collect-file-lines
    #:collect-file-tabular
