@@ -39,6 +39,8 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:a/an/some
    #:any
    #:as-number
+   #:blank-string
+   #:blank-string-p
    #:boolbool
    #:c-style-identifier
    #:c-style-identifier-p
@@ -134,8 +136,8 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:yesno$
    #:|hash|
    #:∞
-   
-      ;;; Symbols from other libraries
+ 
+ ;;; Symbols from other libraries
    ;; There is a very lengthy set of library functions that we want to
    ;; use without package prefixes in all of our other packages. As
    ;; such, they're exported here from their original packages. In other
@@ -538,7 +540,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    trivial-gray-streams:stream-write-char
    trivial-gray-streams:stream-write-sequence
    trivial-gray-streams:stream-write-string
-   
+
    )) ; end of DEFPACKAGE form
 
 (require :babel)
