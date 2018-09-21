@@ -1,5 +1,8 @@
 (in-package :oliphaunt)
 
+;;; TODO: pick from :vas-string-metrics, :mk-string-metrics
+
+
 (defun strcat (&rest strings)
   (reduce (curry #'concatenate 'string)
           (mapcar (lambda (element)
@@ -86,7 +89,6 @@
   :documentation "A list of characters which often have special
 meanings (e.g. in the shell) and should usually be replaced or escaped
 in some contexts.")
-
 
 
 ;;; Escaping strings using various strategies
