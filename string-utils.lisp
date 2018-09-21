@@ -60,7 +60,14 @@
   Page Break. Superset of the ASCII whitespace chars we expect
   to encounter.")
 
+(defun blank-string-p (string)
+  (check-type string string)
+  (or (zerop (length string))
+      (every (rcurry #'find +whitespace+) string)))
 
+(deftype blank-string ()
+  `(and string
+        (satisfies blank-string-p)))
 
 (define-constant +often-naughty-chars+
     (coerce #+sbcl #(#\\ #\! #\| #\# #\$ #\% #\& #\?
