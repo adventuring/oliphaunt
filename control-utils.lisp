@@ -38,6 +38,12 @@
 
 
 
+(defun extreme (function list)
+  (reduce (lambda (a b)
+            (if (funcall function a b) a b))
+          list))
+
+
 (defmacro modincf (place base)
   "Increment a setf'able place, and return true whenever it wraps
 around modulo base.
