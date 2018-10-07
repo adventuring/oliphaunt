@@ -61,15 +61,20 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:escape-java
    #:escape-url-encoded
    #:escape-with-char
+   #:extract
+   #:extreme
+   #:file-write-year
    #:for-all
    #:for-any
    #:forever
    #:group-by
    #:|hash|
+   #:human-duration
    #:join
    #:keywordify
    #:letter-case
    #:plist-p
+   #:range-size
    #:regex-replace-pairs
    #:remove-commas
    #:schemey-record
@@ -85,6 +90,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:boolbool
    #:clean-plist #:keyword*
    #:letter-case
+   #:map-asdf-files
    #:mapplist
    #:make-t-every-n-times
    #:maybe-alist-row
