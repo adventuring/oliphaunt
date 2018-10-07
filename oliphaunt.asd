@@ -19,6 +19,7 @@
                :cl-readline
                :cl-unicode
                :cffi
+               :fare-memoization
                :langutils
                :local-time
                :parse-number
