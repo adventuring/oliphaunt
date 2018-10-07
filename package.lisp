@@ -37,8 +37,11 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:36r
    #:a/an/some
    #:any
+   #:as-number
    #:blank-string
    #:blank-string-p
+   #:boolbool
+   #:clean-plist
    #:collect-file
    #:collect-file-lines
    #:collect-file-tabular
@@ -63,47 +66,47 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:|hash|
    #:human-duration
    #:join
+   #:keyword*
    #:keywordify
-   #:plist-p
-   #:range-size
-   #:regex-replace-pairs
-   #:remove-commas
-   #:schemey-record
-   #:yesno$
-   #:print-plist->table
-   #:plist-keys
-   #:parse-decimal
-   #:plist-values
-   #:mail-only
-   #:numeric
-   #:as-number
-   #:boolbool
-   #:clean-plist #:keyword*
    #:letter-case
+   #:load-average
+   #:mail-only
+   #:make-t-every-n-times
    #:map-asdf-files
    #:mapplist
-   #:make-t-every-n-times
    #:maybe-alist-row
    #:maybe-alist-split
    #:maybe-numeric
-   #:modincf
    #:membership
+   #:modincf
+   #:numeric
+   #:parse-decimal
    #:parse-roman-numeral
+   #:plist-keys
+   #:plist-p
+   #:plist-values
    #:plural
+   #:print-plist->table
+   #:processor-count
    #:range
+   #:range-size
+   #:regex-replace-pairs
+   #:remove-commas
    #:repeat
    #:roman-numeral
-   #:split-and-collect-file
+   #:run-ssh
+   #:schemey-record
    #:server-start-banner
+   #:split-and-collect-file
    #:start-repl
    #:start-server/generic
+   #:stonith
    #:strcat
-   #:string-case
-   #:string-ends
-   #:string-begins
-   #:string-ending
    #:string-beginning
-   #:+utf8+
+   #:string-begins
+   #:string-case
+   #:string-ending
+   #:string-ends
    #:string-escape
    #:string-fixed
    #:strings-list
@@ -112,9 +115,11 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:take-if
    #:todo
    #:until
+   #:+utf8+
    #:while
    #:with-do-over-restart
    #:without-warnings
+   #:yesno$
  
  ;;; Symbols from other libraries
    ;; There is a very lengthy set of library functions that we want to
