@@ -44,7 +44,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:boolbool
    #:c-style-identifier
    #:c-style-identifier-p
-   #:clean-plist #:keyword*
+   #:clean-plist
    #:collect-file
    #:collect-file-lines
    #:collect-file-tabular
@@ -71,6 +71,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:|hash|
    #:human-duration
    #:join
+   #:keyword*
    #:keywordify
    #:letter-case
    #:plist-p
@@ -83,6 +84,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:plist-keys
    #:parse-decimal
    #:plist-values
+   #:load-average
    #:mail-only
    #:make-t-every-n-times
    #:numeric
@@ -106,17 +108,21 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:plist-values
    #:plural
    #:print-plist->table
+   #:processor-count
    #:range
+   #:range-size
    #:regex-replace-pairs
    #:remove-commas
    #:repeat
    #:roman-numeral
+   #:run-ssh
    #:schemey-record
    #:server-start-banner
    #:split-and-collect-file
    #:server-start-banner
    #:start-repl
    #:start-server/generic
+   #:stonith
    #:strcat
    #:string-beginning
    #:string-begins
