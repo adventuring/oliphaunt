@@ -142,6 +142,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:take
    #:take-if
    #:todo
+   #:translate-american-ish-date
    #:until
    #:while
    #:with-do-over-restart
