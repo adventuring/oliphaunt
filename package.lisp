@@ -14,6 +14,7 @@
         #:local-time #:split-sequence #:parse-number
         #:trivial-gray-streams)
   (:nicknames :romans :romance-ii :romance2)
+  (:shadowing-import-from :fare-memoization #:define-memo-function)
   (:shadowing-import-from #:cl-fad #:copy-file #:copy-stream) ; conflicts with Alexandria.
   (:shadowing-import-from #+sbcl #:sb-int
                           #+ccl #:ccl
