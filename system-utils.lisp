@@ -232,7 +232,7 @@ git
 
 ;;; Information about the hardware
 
-(define-memo-function processor-count ()
+(fare-memoization:define-memo-function processor-count ()
   "Number of processor (cores) available."
   #+linux
   (progn
