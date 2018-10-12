@@ -325,6 +325,21 @@ will be of interest.
   (check-type host dns-name)
   (check-type user string)
   (assert (probe-file identity-file))
-  
+
   (uiop/run-program:run-program (list "ssh" "-i" identity-file "-l" user host "echo t")))
 
+
+
+(defun network-interfaces ()
+  #+Linux (mapcar #'lastcar (mapcar #'pathname-directory
+                                    (directory #p"/sys/class/net/*")))
+  #-Linux (error 'unimplemented))
+
+(defmethod network-interface-address ((interface-designator string))
+  #+Linux
+  (with-input-from-file (addr$ (make-pathname
+                                :directory (list :absolute "sys" "class" "net"
+                                                 interface-designator)
+                                :name "address"))
+    (read-line addr$))
+  #-Linux (error 'unimplemented))
