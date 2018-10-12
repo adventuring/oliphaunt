@@ -101,6 +101,8 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:maybe-numeric
    #:membership
    #:modincf
+   #:network-interface-address
+   #:network-interfaces
    #:numeric
    #:parse-decimal
    #:parse-roman-numeral
