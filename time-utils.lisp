@@ -1,67 +1,67 @@
-(in-package :oliphaunt)
+(In-Package :Oliphaunt)
 
 ;;; Time handling.
 
-(defun days-ago (days)
+(DeFun Days-Ago (Days)
   "Return a time that is DAYS days in the past."
-  (local-time:timestamp- (local-time:now) days :day))
+  (Timestamp- (Now) Days :Day))
 
-(defun yesterday ()
+(DeFun Yesterday ()
   "Get the same time as now, but yesterday.
 
 See: `DAYS-AGO'"
-  (days-ago 1))
+  (Days-Ago 1))
 
-(defun 2-days-ago ()
+(DeFun 2-Days-Ago ()
   "Two days ago.
 
 See: `DAYS-AGO'"
-  (days-ago 2))
+  (Days-Ago 2))
 
-(defun 3-days-ago ()
+(DeFun 3-Days-Ago ()
   "Three days ago.
 
 See: `DAYS-AGO'"
-  (days-ago 3))
+  (Days-Ago 3))
 
-(defun header-time (&optional (time (get-universal-time)))
+(DeFun Header-Time (&Optional (Time (Get-Universal-Time)))
   "Format TIME (or now) as an RFC-1123 timestring for HTTP headers.
 
 Accepts either a LOCAL-TIME:TIMESTAMP or NUMBER of Universal Time."
-  (local-time:format-rfc1123-timestring
-   nil
-   (etypecase time
-     (number (local-time:universal-to-timestamp time))
-     (local-time:timestamp time))))
+  (Format-RFC1123-Timestring
+   Nil
+   (ETypeCase Time
+     (Number (Universal-To-Timestamp Time))
+     (Timestamp Time))))
 
-(defun year<-universal-time (time)
-  (nth-value 5 (decode-universal-time time)))
+(DeFun Year<-Universal-Time (Time)
+  (Nth-Value 5 (Decode-Universal-Time Time)))
 
-(defun file-write-year (file)
-  (or (year<-universal-time (file-write-date file))
+(DeFun File-Write-Year (File)
+  (Or (Year<-Universal-Time (File-Write-Date File))
       0))
 
 
 
-(defun translate-american-ish-date (created-at)
-  (register-groups-bind ((#'parse-integer month)
-                         (#'parse-integer day)
-                         (#'parse-integer year)
-                         (#'parse-integer hour)
-                         (#'parse-integer minute)
-                         (#'parse-integer second))
+(DeFun Translate-American-ish-Date (Created-At)
+  (Register-Groups-Bind ((#'Parse-Integer Month)
+                         (#'Parse-Integer Day)
+                         (#'Parse-Integer Year)
+                         (#'Parse-Integer Hour)
+                         (#'Parse-Integer Minute)
+                         (#'Parse-Integer Second))
       ("(\\d\\d)/(\\d\\d)/(201\\d) ([012]\\d):([0-5]\\d):([0-5]\\d)"
-       created-at :sharedp t)
-    (check-type year (integer 2015 2018))
-    (check-type month (integer 1 12))
-    (check-type day (integer 1 31))
-    (assert (<= day (case month
+       Created-At :SharedP T)
+    (Check-Type Year (Integer 2015 2018))
+    (Check-Type Month (Integer 1 12))
+    (Check-Type Day (Integer 1 31))
+    (Assert (<= Day (Case Month
                       ((4 6 9 11) 30)
-                      (2 (case year
+                      (2 (Case Year
                            (2016 29)
-                           (otherwise 28)))
+                           (Otherwise 28)))
                       ((1 3 5 7 8 10 12) 31))))
-    (check-type hour (integer 00 (24)))
-    (check-type minute (integer 0 (60)))
-    (check-type second (integer 0 (60)))
-    (encode-timestamp 0 second minute hour day month year)))
+    (Check-Type Hour (Integer 00 (24)))
+    (Check-Type Minute (Integer 0 (60)))
+    (Check-Type Second (Integer 0 (60)))
+    (Encode-Timestamp 0 Second Minute Hour Day Month Year)))

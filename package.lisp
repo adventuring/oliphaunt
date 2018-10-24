@@ -54,7 +54,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:dohash
    #:c-style-identifier
    #:c-style-identifier-p
-   #:doseq
+   #:doseqOB
    #:dohash
    #:escape-by-doubling
    #:escape-c-style
@@ -571,7 +571,19 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    trivial-gray-streams:stream-write-char
    trivial-gray-streams:stream-write-sequence
    trivial-gray-streams:stream-write-string
-
+   
+   ;;; Um, what?
+   ;; Somehow these  end up  exported, and  it pisses  off SBCL  when it
+   ;; recompiles this file, and nobody is happy.
+   
+   OLIPHAUNT:DOSEQ
+   +ISO-8601-DATE-FORMAT+
+   REREAD-TIMEZONE-REPOSITORY
+   EXTREMUM
+   OLIPHAUNT:ESCAPE-JAVA
+   +ISO-8601-TIME-FORMAT+
+   OLIPHAUNT:STRING-ESCAPE-URI-FRAGMENT
+   
    )) ; end of DEFPACKAGE form
 
 (require :babel)
