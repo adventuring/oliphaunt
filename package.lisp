@@ -135,7 +135,6 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:string-begins
    #:string-ending
    #:string-beginning
-   #:+utf8+
    #:string-escape
    #:string-escape-uri-fragment
    #:string-fixed
@@ -418,37 +417,37 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    cl-fad:walk-directory
    cl-fad:with-open-temporary-file
    cl-fad:with-output-to-temporary-file
-   cl-ppcre:*ALLOW-NAMED-REGISTERS*
-   cl-ppcre:*ALLOW-QUOTING*
-   cl-ppcre:*OPTIMIZE-CHAR-CLASSES*
-   cl-ppcre:*PROPERTY-RESOLVER*
-   cl-ppcre:*REGEX-CHAR-CODE-LIMIT*
-   cl-ppcre:*USE-BMH-MATCHERS*
-   cl-ppcre:ALL-MATCHES
-   cl-ppcre:ALL-MATCHES-AS-STRINGS
-   cl-ppcre:CREATE-OPTIMIZED-TEST-FUNCTION
-   cl-ppcre:CREATE-SCANNER
-   cl-ppcre:DEFINE-PARSE-TREE-SYNONYM
-   cl-ppcre:DO-MATCHES
-   cl-ppcre:DO-MATCHES-AS-STRINGS
-   cl-ppcre:DO-REGISTER-GROUPS
-   cl-ppcre:DO-SCANS
-   cl-ppcre:PARSE-STRING
-   cl-ppcre:PARSE-TREE-SYNONYM
-   cl-ppcre:PPCRE-ERROR
-   cl-ppcre:PPCRE-INVOCATION-ERROR
-   cl-ppcre:PPCRE-SYNTAX-ERROR
-   cl-ppcre:PPCRE-SYNTAX-ERROR-POS
-   cl-ppcre:PPCRE-SYNTAX-ERROR-STRING
-   cl-ppcre:QUOTE-META-CHARS
-   cl-ppcre:REGEX-APROPOS
-   cl-ppcre:REGEX-APROPOS-LIST
-   cl-ppcre:REGEX-REPLACE
-   cl-ppcre:REGEX-REPLACE-ALL
-   cl-ppcre:REGISTER-GROUPS-BIND
-   cl-ppcre:SCAN
-   cl-ppcre:SCAN-TO-STRINGS
-   cl-ppcre:SPLIT
+   cl-ppcre:*allow-named-registers*
+   cl-ppcre:*allow-quoting*
+   cl-ppcre:*optimize-char-classes*
+   cl-ppcre:*property-resolver*
+   cl-ppcre:*regex-char-code-limit*
+   cl-ppcre:*use-bmh-matchers*
+   cl-ppcre:all-matches
+   cl-ppcre:all-matches-as-strings
+   cl-ppcre:create-optimized-test-function
+   cl-ppcre:create-scanner
+   cl-ppcre:define-parse-tree-synonym
+   cl-ppcre:do-matches
+   cl-ppcre:do-matches-as-strings
+   cl-ppcre:do-register-groups
+   cl-ppcre:do-scans
+   cl-ppcre:parse-string
+   cl-ppcre:parse-tree-synonym
+   cl-ppcre:ppcre-error
+   cl-ppcre:ppcre-invocation-error
+   cl-ppcre:ppcre-syntax-error
+   cl-ppcre:ppcre-syntax-error-pos
+   cl-ppcre:ppcre-syntax-error-string
+   cl-ppcre:quote-meta-chars
+   cl-ppcre:regex-apropos
+   cl-ppcre:regex-apropos-list
+   cl-ppcre:regex-replace
+   cl-ppcre:regex-replace-all
+   cl-ppcre:register-groups-bind
+   cl-ppcre:scan
+   cl-ppcre:scan-to-strings
+   cl-ppcre:split
    fare-memoization:define-memo-function
    local-time:*clock*
    local-time:*default-timezone*
