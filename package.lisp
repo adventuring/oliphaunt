@@ -11,91 +11,90 @@
 (defpackage :oliphaunt
   (:use :cl :alexandria
         :bordeaux-threads :local-time :split-sequence :cl-fad :parse-number
-   :cl-ppcre :trivial-gray-streams)
+        :cl-ppcre :trivial-gray-streams)
   (:nicknames :romans :romance-ii :romance2)
   (:shadowing-import-from :cl-fad :copy-file :copy-stream) ; conflicts with Alexandria.
   (:shadowing-import-from #+sbcl :sb-int
-   #+ccl :ccl
-   #-(or sbcl ccl)
-   (warn-impl simple-file-error
-              "The SIMPLE-FILE-ERROR condition type must be imported into
+                          #+ccl :ccl
+                          #-(or sbcl ccl)
+                          (warn-impl simple-file-error
+                                     "The SIMPLE-FILE-ERROR condition type must be imported into
 the ROMANCE package. It is probably in your compiler's INT or EXT
 package (or similar). Perhaps it's even named the same? Try (APROPOS
 \"SIMPLE-FILE-ERROR\").")
-   :simple-file-error)
+                          :simple-file-error)
   (:documentation
    "Common code used by some of my projects")
   (:export
    ;; Locally-defined symbols
-   #:∞
    #:+inline-whitespace+
    #:+often-naughty-chars+
-   #:+whitespace+
    #:+utf-8+
-   #:a/an
+   #:+utf8+
+   #:+whitespace+
    #:36r
+   #:a/an
    #:a/an/some
    #:any
+   #:as-number
+   #:boolbool
+   #:c-style-identifier
+   #:c-style-identifier-p
+   #:clean-plist #:keyword*
    #:collect-file
    #:collect-file-lines
    #:collect-file-tabular
    #:copyrights
    #:counting
-   #:c-style-identifier
-   #:c-style-identifier-p
-   #:doseq
    #:dohash
+   #:doseq
    #:escape-by-doubling
    #:escape-c-style
    #:escape-lispy
+   #:escape-java
    #:escape-url-encoded
    #:escape-with-char
    #:for-all
    #:for-any
    #:forever
    #:group-by
-   #:|hash|
    #:join
    #:keywordify
-   #:plist-p
-   #:regex-replace-pairs
-   #:remove-commas
-   #:schemey-record
-   #:yesno$
-   #:print-plist->table
-   #:plist-keys
-   #:parse-decimal
-   #:plist-values
-   #:mail-only
-   #:numeric
-   #:as-number
-   #:boolbool
-   #:clean-plist #:keyword*
    #:letter-case
-   #:mapplist
+   #:mail-only
    #:make-t-every-n-times
+   #:mapplist
    #:maybe-alist-row
    #:maybe-alist-split
    #:maybe-numeric
-   #:modincf
    #:membership
+   #:modincf
+   #:numeric
+   #:parse-decimal
    #:parse-roman-numeral
+   #:plist-keys
+   #:plist-p
+   #:plist-values
    #:plural
+   #:print-plist->table
    #:range
+   #:regex-replace-pairs
+   #:remove-commas
    #:repeat
    #:roman-numeral
-   #:split-and-collect-file
+   #:schemey-record
    #:server-start-banner
+   #:split-and-collect-file
    #:start-repl
    #:start-server/generic
    #:strcat
-   #:string-case
-   #:string-ends
-   #:string-begins
-   #:string-ending
    #:string-beginning
-   #:+utf8+
+   #:string-begins
+   #:string-case
+   #:string-ending
+   #:string-ends
    #:string-escape
+   #:string-escape-uri-fragment
    #:string-fixed
    #:strings-list
    #:strings-list-p
@@ -106,6 +105,9 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:while
    #:with-do-over-restart
    #:without-warnings
+   #:yesno$
+   #:|hash|
+   #:∞
    
       ;;; Symbols from other libraries
    ;; There is a very lengthy set of library functions that we want to

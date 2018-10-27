@@ -65,7 +65,7 @@
 (define-constant +often-naughty-chars+
     (coerce #+sbcl #(#\\ #\! #\| #\# #\$ #\% #\& #\?
                      #\{ #\[ #\( #\) #\] #\} #\= #\^ #\~
-                     #\' #\" #\` #\< #\> #\*
+                     #\' #\double_quotation_mark #\` #\< #\> #\*
                      #\Space #\Tab #\Page #\Linefeed #\Return #\Null
                      #\No-Break_Space #\Reverse-Linefeed
                      #\Zero_Width_No-Break_Space)
@@ -96,9 +96,19 @@ in some contexts.")
 (defun escape-url-encoded (char &optional _)
   (declare (ignore _))
   (check-type char character)
-  (format nil "~{%~2,'0x~}" (coerce
-                             (babel:string-to-octets (string char))
-                             'list)))
+  (cond
+    ((or (char<= #\a char #\z)
+         (char<= #\A char #\Z)
+         (char<= #\0 char #\9)
+         (find char "-_.," :test #'char=))
+     (coerce (vector char) 'string))
+    ((char= #\space char) "+")
+    (t (format nil "~{%~2,'0x~}"
+               (coerce (babel:string-to-octets (string char)) 'list)))))
+
+(defun string-escape-uri-fragment (string)
+  (reduce (curry #'concatenate 'string) (map 'list #'escape-url-encoded string)))
+
 (defun escape-octal (char &optional _)
   (declare (ignore _))
   (check-type char character)
@@ -118,9 +128,9 @@ in some contexts.")
 (defun escape-c-style (char &optional _)
   (declare (ignore _))
   (check-type char character)
-  (assert (< (char-code char) #x10000) (char)
-          "Cannot Java-encode characters whose Unicode codepoint is
-          above #xFFFF. Character ~@C (~:*~:C) has a codepoint of #x~x."
+  (assert (< (char-code char) #x100) (char)
+          "Cannot C-encode characters whose Unicode codepoint is
+          above #x7f yet. Character ~@C (~:*~:C) has a codepoint of #x~x."
           char (char-code char))
   (format nil "\\u~4,'0x" (char-code char)))
 
