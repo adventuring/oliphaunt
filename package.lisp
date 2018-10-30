@@ -18,9 +18,9 @@
   (:shadowing-import-from #:cl-fad #:copy-file #:copy-stream) ; conflicts with Alexandria.
   (:shadowing-import-from #+sbcl #:sb-int
                           #+ccl #:ccl
-                          #-(or sbcl ccl)
-                          (warn-impl simple-file-error
-                                     "The SIMPLE-FILE-ERROR condition type must be imported into
+   #-(or sbcl ccl)
+   (warn-impl simple-file-error
+              "The SIMPLE-FILE-ERROR condition type must be imported into
 the ROMANCE package. It is probably in your compiler's INT or EXT
 package (or similar). Perhaps it's even named the same? Try (APROPOS
 \"SIMPLE-FILE-ERROR\").")
@@ -32,8 +32,9 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:∞
    #:+inline-whitespace+
    #:+often-naughty-chars+
-   #:+whitespace+
    #:+utf-8+
+   #:+utf8+
+   #:+whitespace+
    #:a/an
    #:36r
    #:a/an/some
@@ -42,12 +43,15 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:blank-string
    #:blank-string-p
    #:boolbool
+   #:c-style-identifier
+   #:c-style-identifier-p
    #:clean-plist
    #:collect-file
    #:collect-file-lines
    #:collect-file-tabular
    #:copyrights
    #:counting
+   #:dohash
    #:c-style-identifier
    #:c-style-identifier-p
    #:doseq
@@ -55,6 +59,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:escape-by-doubling
    #:escape-c-style
    #:escape-lispy
+   #:escape-java
    #:escape-url-encoded
    #:escape-with-char
    #:extract
@@ -70,11 +75,27 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:keyword*
    #:keywordify
    #:letter-case
+   #:plist-p
+   #:range-size
+   #:regex-replace-pairs
+   #:remove-commas
+   #:schemey-record
+   #:yesno$
+   #:print-plist->table
+   #:plist-keys
+   #:parse-decimal
+   #:plist-values
    #:load-average
    #:mail-only
    #:make-t-every-n-times
+   #:numeric
+   #:as-number
+   #:boolbool
+   #:clean-plist #:keyword*
+   #:letter-case
    #:map-asdf-files
    #:mapplist
+   #:make-t-every-n-times
    #:maybe-alist-row
    #:maybe-alist-split
    #:maybe-numeric
@@ -101,6 +122,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:schemey-record
    #:server-start-banner
    #:split-and-collect-file
+   #:server-start-banner
    #:start-repl
    #:start-server/generic
    #:stonith
@@ -110,7 +132,11 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:string-case
    #:string-ending
    #:string-ends
+   #:string-begins
+   #:string-ending
+   #:string-beginning
    #:string-escape
+   #:string-escape-uri-fragment
    #:string-fixed
    #:strings-list
    #:strings-list-p
@@ -119,13 +145,14 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:todo
    #:translate-american-ish-date
    #:until
-   #:+utf8+
    #:while
    #:with-do-over-restart
    #:without-warnings
    #:yesno$
- 
- ;;; Symbols from other libraries
+   #:|hash|
+   #:∞
+   
+      ;;; Symbols from other libraries
    ;; There is a  very lengthy set of library functions  that we want to
    ;; use  without  package  prefixes  in all  of  our  other  packages.
    ;; As  such,  they're exported  here  from  their original  packages.
@@ -390,37 +417,37 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    cl-fad:walk-directory
    cl-fad:with-open-temporary-file
    cl-fad:with-output-to-temporary-file
-   cl-ppcre:*ALLOW-NAMED-REGISTERS*
-   cl-ppcre:*ALLOW-QUOTING*
-   cl-ppcre:*OPTIMIZE-CHAR-CLASSES*
-   cl-ppcre:*PROPERTY-RESOLVER*
-   cl-ppcre:*REGEX-CHAR-CODE-LIMIT*
-   cl-ppcre:*USE-BMH-MATCHERS*
-   cl-ppcre:ALL-MATCHES
-   cl-ppcre:ALL-MATCHES-AS-STRINGS
-   cl-ppcre:CREATE-OPTIMIZED-TEST-FUNCTION
-   cl-ppcre:CREATE-SCANNER
-   cl-ppcre:DEFINE-PARSE-TREE-SYNONYM
-   cl-ppcre:DO-MATCHES
-   cl-ppcre:DO-MATCHES-AS-STRINGS
-   cl-ppcre:DO-REGISTER-GROUPS
-   cl-ppcre:DO-SCANS
-   cl-ppcre:PARSE-STRING
-   cl-ppcre:PARSE-TREE-SYNONYM
-   cl-ppcre:PPCRE-ERROR
-   cl-ppcre:PPCRE-INVOCATION-ERROR
-   cl-ppcre:PPCRE-SYNTAX-ERROR
-   cl-ppcre:PPCRE-SYNTAX-ERROR-POS
-   cl-ppcre:PPCRE-SYNTAX-ERROR-STRING
-   cl-ppcre:QUOTE-META-CHARS
-   cl-ppcre:REGEX-APROPOS
-   cl-ppcre:REGEX-APROPOS-LIST
-   cl-ppcre:REGEX-REPLACE
-   cl-ppcre:REGEX-REPLACE-ALL
-   cl-ppcre:REGISTER-GROUPS-BIND
-   cl-ppcre:SCAN
-   cl-ppcre:SCAN-TO-STRINGS
-   cl-ppcre:SPLIT
+   cl-ppcre:*allow-named-registers*
+   cl-ppcre:*allow-quoting*
+   cl-ppcre:*optimize-char-classes*
+   cl-ppcre:*property-resolver*
+   cl-ppcre:*regex-char-code-limit*
+   cl-ppcre:*use-bmh-matchers*
+   cl-ppcre:all-matches
+   cl-ppcre:all-matches-as-strings
+   cl-ppcre:create-optimized-test-function
+   cl-ppcre:create-scanner
+   cl-ppcre:define-parse-tree-synonym
+   cl-ppcre:do-matches
+   cl-ppcre:do-matches-as-strings
+   cl-ppcre:do-register-groups
+   cl-ppcre:do-scans
+   cl-ppcre:parse-string
+   cl-ppcre:parse-tree-synonym
+   cl-ppcre:ppcre-error
+   cl-ppcre:ppcre-invocation-error
+   cl-ppcre:ppcre-syntax-error
+   cl-ppcre:ppcre-syntax-error-pos
+   cl-ppcre:ppcre-syntax-error-string
+   cl-ppcre:quote-meta-chars
+   cl-ppcre:regex-apropos
+   cl-ppcre:regex-apropos-list
+   cl-ppcre:regex-replace
+   cl-ppcre:regex-replace-all
+   cl-ppcre:register-groups-bind
+   cl-ppcre:scan
+   cl-ppcre:scan-to-strings
+   cl-ppcre:split
    fare-memoization:define-memo-function
    local-time:*clock*
    local-time:*default-timezone*
@@ -544,7 +571,16 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    trivial-gray-streams:stream-write-char
    trivial-gray-streams:stream-write-sequence
    trivial-gray-streams:stream-write-string
-
+   
+   ;;; Um, what?
+   ;; Somehow these  end up  exported, and  it pisses  off SBCL  when it
+   ;; recompiles this file, and nobody is happy.
+   
+   +ISO-8601-DATE-FORMAT+
+   REREAD-TIMEZONE-REPOSITORY
+   EXTREMUM
+   +ISO-8601-TIME-FORMAT+
+   
    )) ; end of DEFPACKAGE form
 
 (require :babel)
@@ -552,3 +588,4 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
 (in-package :oliphaunt)
 
 (defvar +utf-8+ (flexi-streams:make-external-format :utf8 :eol-style :lf))
+
