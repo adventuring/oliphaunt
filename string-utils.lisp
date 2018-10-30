@@ -90,7 +90,7 @@
 meanings (e.g. in the shell) and should usually be replaced or escaped
 in some contexts.")
 
-
+
 ;;; Escaping strings using various strategies
 (defun escape-with-char (char escape-char)
   (check-type char character)
@@ -432,14 +432,10 @@ string. If the second value is negative, the string was truncated."
        (or
         (when (boundp '*--interning-better-breakpoint*)
           (if (numberp *--interning-better-breakpoint*)
-              (prog1
                   *--interning-better-breakpoint*
-                (warn "Using string interning for STRING-CASE of ~R cases"
-                      *--interning-better-breakpoint*))
               (prog1
                   #+sbcl sb-ext:long-float-positive-infinity
-                  #-sbcl most-positive-fixnum
-                  (warn "Disabling string interning on this platform"))))
+                  #-sbcl most-positive-fixnum)))
         (flet ((make-random-string (string-length)
                  (format nil "~{~C~}"
                          (loop for char from 1 upto (1+ string-length)
@@ -475,8 +471,11 @@ string. If the second value is negative, the string was truncated."
                                                     (funcall expr/interning test-string))
                                                   (- (get-internal-real-time) start)))
                            
-                         ;; do (format *trace-output* "~&;; STRING-CASE Cost for ~D (~:D×): interning: ~F literals: ~F"
-                         ;;            num-cases num-repeats cost/interning cost/literal)
+                         ;; do (format  *trace-output* "~&;; STRING-CASE
+                         ;;            Cost for ~D (~:D×): interning: ~F
+                         ;;            literals:      ~F"      num-cases
+                         ;;            num-repeats        cost/interning
+                         ;;            cost/literal)
                          when (< cost/interning cost/literal)
                          return num-cases))))
             (let ((average (round (/ (apply #'+ trials) (length trials)))))

@@ -18,9 +18,9 @@
   (:shadowing-import-from #:cl-fad #:copy-file #:copy-stream) ; conflicts with Alexandria.
   (:shadowing-import-from #+sbcl #:sb-int
                           #+ccl #:ccl
-                          #-(or sbcl ccl)
-                          (warn-impl simple-file-error
-                                     "The SIMPLE-FILE-ERROR condition type must be imported into
+   #-(or sbcl ccl)
+   (warn-impl simple-file-error
+              "The SIMPLE-FILE-ERROR condition type must be imported into
 the ROMANCE package. It is probably in your compiler's INT or EXT
 package (or similar). Perhaps it's even named the same? Try (APROPOS
 \"SIMPLE-FILE-ERROR\").")
@@ -151,8 +151,8 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:yesno$
    #:|hash|
    #:∞
- 
- ;;; Symbols from other libraries
+   
+      ;;; Symbols from other libraries
    ;; There is a  very lengthy set of library functions  that we want to
    ;; use  without  package  prefixes  in all  of  our  other  packages.
    ;; As  such,  they're exported  here  from  their original  packages.
@@ -580,7 +580,7 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    REREAD-TIMEZONE-REPOSITORY
    EXTREMUM
    +ISO-8601-TIME-FORMAT+
-
+   
    )) ; end of DEFPACKAGE form
 
 (require :babel)
