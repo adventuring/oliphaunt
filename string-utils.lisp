@@ -75,7 +75,7 @@
 (define-constant +often-naughty-chars+
     (coerce #+sbcl #(#\\ #\! #\| #\# #\$ #\% #\& #\?
                      #\{ #\[ #\( #\) #\] #\} #\= #\^ #\~
-                     #\' #\double_quotation_mark #\` #\< #\> #\*
+                     #\' #\quotation_mark #\` #\< #\> #\*
                      #\Space #\Tab #\Page #\Linefeed #\Return #\Null
                      #\No-Break_Space #\Reverse-Linefeed
                      #\Zero_Width_No-Break_Space)
