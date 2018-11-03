@@ -2,6 +2,15 @@
 
 ;;; TODO: pick from :vas-string-metrics, :mk-string-metrics
 
+(defgeneric ensure-string (object)
+  (:method ((string string)) string)
+  (:method ((vector vector))
+    (typecase (elt vector 0)
+      (character (coerce vector 'string))
+      (number (map 'string #'code-char vector))
+      (t (princ-to-string vector))))
+  (:method (object)
+    (princ-to-string object)))
 
 (defun strcat (&rest strings)
   (reduce (curry #'concatenate 'string)
