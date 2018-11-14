@@ -37,5 +37,3 @@ then extract an item from each subsequently nested collection.
 (let ((h (make-hash-table :test 'equalp)))
   (setf (gethash "monkey" h) "George")
   (assert (string= "George" (extract `(:a (:b ,h)) :a :b "monkey"))))
-
-

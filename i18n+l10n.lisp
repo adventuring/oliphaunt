@@ -1331,7 +1331,7 @@ well enough for many (most) English words. At least, an improvement upon
 (defun range-size (numeric-range-string)
   "Count the length of a range of numbers separated by -"
   (if (find #\- numeric-range-string)
-      (destructuring-bind (start end) 
+      (destructuring-bind (start end)
           (uiop:split-string numeric-range-string
                              :separator "-")
         (1+ (- (parse-integer end) (parse-integer start))))
@@ -1350,5 +1350,3 @@ well enough for many (most) English words. At least, an improvement upon
     ((< seconds (* 75 7 24 60 60))
      (format nil "~d weeks" (round seconds (* 7 24 60 60))))
     (t (format nil "~d years" (round seconds (* 365.2489 24 60 60))))))
-
-

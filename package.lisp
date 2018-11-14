@@ -152,8 +152,8 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    #:yesno$
    #:|hash|
    #:∞
-   
-      ;;; Symbols from other libraries
+ 
+ ;;; Symbols from other libraries
    ;; There is a  very lengthy set of library functions  that we want to
    ;; use  without  package  prefixes  in all  of  our  other  packages.
    ;; As  such,  they're exported  here  from  their original  packages.
@@ -572,16 +572,16 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
    trivial-gray-streams:stream-write-char
    trivial-gray-streams:stream-write-sequence
    trivial-gray-streams:stream-write-string
-   
-   ;;; Um, what?
+
+ ;;; Um, what?
    ;; Somehow these  end up  exported, and  it pisses  off SBCL  when it
    ;; recompiles this file, and nobody is happy.
-   
+
    +ISO-8601-DATE-FORMAT+
    REREAD-TIMEZONE-REPOSITORY
    EXTREMUM
    +ISO-8601-TIME-FORMAT+
-   
+
    )) ; end of DEFPACKAGE form
 
 (require :babel)
@@ -589,4 +589,3 @@ package (or similar). Perhaps it's even named the same? Try (APROPOS
 (in-package :oliphaunt)
 
 (defvar +utf-8+ (flexi-streams:make-external-format :utf8 :eol-style :lf))
-

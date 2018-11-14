@@ -23,28 +23,28 @@
 
 (define-constant +whitespace+
     (coerce #+sbcl #(;; Defined in ASCII
-              #\Space #\Tab #\Page #\Linefeed #\Return #\Null
-              ;; defined in ISO-8859-*
-              #\No-Break_Space #\Reverse-Linefeed
-              ;; defined in Unicode
-              #\Ogham_space_mark #\Mongolian_Vowel_Separator
-              #\En_quad #\Em_quad #\En_Space #\Em_Space
-              #\Three-per-Em_Space #\Four-per-Em_Space
-              #\Six-per-Em_Space #\Figure_Space #\Punctuation_Space
-              #\Thin_Space #\Hair_Space
-              #\Zero_Width_Space #\Narrow_No-Break_Space
-              #\Medium_Mathematical_Space #\Ideographic_Space
-              #\Zero_Width_No-Break_Space)
-              #+ccl
-              #(#\u+20 #\u+9 #\u+C #\u+A #\u+D #\u+0 #\u+A0 #\u+8D
-                #\u+1680 #\u+180E #\u+2000 #\u+2001 #\u+2002 #\u+2003 #\u+2004 #\u+2005
-                #\u+2006 #\u+2007 #\u+2008 #\u+2009 #\u+200A #\u+200B #\u+202F #\u+205F
-                #\u+3000 #\u+FEFF)
-             #-(or sbcl ccl) #.(error "Need Unicode help")
-              'simple-string)
-    :test #'equal
-    :documentation "A list of all whitespace chars in Unicode. Superset of
-  the ASCII whitespace chars we expect to encounter.")
+                     #\Space #\Tab #\Page #\Linefeed #\Return #\Null
+                     ;; defined in ISO-8859-*
+                     #\No-Break_Space #\Reverse-Linefeed
+                     ;; defined in Unicode
+                     #\Ogham_space_mark #\Mongolian_Vowel_Separator
+                     #\En_quad #\Em_quad #\En_Space #\Em_Space
+                     #\Three-per-Em_Space #\Four-per-Em_Space
+                     #\Six-per-Em_Space #\Figure_Space #\Punctuation_Space
+                     #\Thin_Space #\Hair_Space
+                     #\Zero_Width_Space #\Narrow_No-Break_Space
+                     #\Medium_Mathematical_Space #\Ideographic_Space
+                     #\Zero_Width_No-Break_Space)
+            #+ccl
+            #(#\u+20 #\u+9 #\u+C #\u+A #\u+D #\u+0 #\u+A0 #\u+8D
+              #\u+1680 #\u+180E #\u+2000 #\u+2001 #\u+2002 #\u+2003 #\u+2004 #\u+2005
+              #\u+2006 #\u+2007 #\u+2008 #\u+2009 #\u+200A #\u+200B #\u+202F #\u+205F
+              #\u+3000 #\u+FEFF)
+            #-(or sbcl ccl) #.(error "Need Unicode help")
+            'simple-string)
+  :test #'equal
+  :documentation "A list of all whitespace chars in Unicode. Superset of
+ the ASCII whitespace chars we expect to encounter.")
 
 
 (define-constant +inline-whitespace+
@@ -64,13 +64,13 @@
             #+ccl #(#\u+20 #\u+9 #\u+A0 #\u+1680 #\u+180E #\u+2000 #\u+2001 #\u+2002
                     #\u+2003 #\u+2004 #\u+2005 #\u+2006 #\u+2007 #\u+2008 #\u+2009 #\u+200A
                     #\u+200B #\u+202F #\u+205F #\u+3000 #\u+FEFF)
-             #-(or sbcl ccl) #.(error "Need Unicode help")
+            #-(or sbcl ccl) #.(error "Need Unicode help")
             'simple-string)
   :test #'equal
   :documentation "A list of all whitespace chars in Unicode that occur
-  \"on a line,\" i.e. excluding Null, Carriage Return, Linefeed, and
-  Page Break. Superset of the ASCII whitespace chars we expect
-  to encounter.")
+ \"on a line,\" i.e. excluding Null, Carriage Return, Linefeed, and
+ Page Break. Superset of the ASCII whitespace chars we expect
+ to encounter.")
 
 (defun blank-string-p (string)
   (check-type string string)
@@ -92,7 +92,7 @@
                     #\u+7B #\u+5B #\u+28 #\u+29 #\u+5D #\u+7D #\u+3D #\u+5E
                     #\u+7E #\u+27 #\u+22 #\u+60 #\u+3C #\u+3E #\u+2A #\u+20
                     #\u+9 #\u+C #\u+A #\u+D #\u+0 #\u+A0 #\u+8D #\u+FEFF)
-             #-(or sbcl ccl) #.(error "Need Unicode help")
+            #-(or sbcl ccl) #.(error "Need Unicode help")
             'simple-string)
   :test #'equal
   :documentation "A list of characters which often have special
@@ -139,7 +139,7 @@ in some contexts.")
   (check-type char character)
   (assert (< (char-code char) #x10000) (char)
           "Cannot Java-encode characters whose Unicode codepoint is
-          above #xFFFF. Character ~@C (~:*~:C) has a codepoint of #x~x."
+ above #xFFFF. Character ~@C (~:*~:C) has a codepoint of #x~x."
           char (char-code char))
   (format nil "\\u~4,'0x" (char-code char)))
 
@@ -148,7 +148,7 @@ in some contexts.")
   (check-type char character)
   (assert (< (char-code char) #x100) (char)
           "Cannot C-encode characters whose Unicode codepoint is
-          above #x7f yet. Character ~@C (~:*~:C) has a codepoint of #x~x."
+ above #x7f yet. Character ~@C (~:*~:C) has a codepoint of #x~x."
           char (char-code char))
   (format nil "\\u~4,'0x" (char-code char)))
 
@@ -202,7 +202,7 @@ For example, to octal-escape all characters outside the range of printable ASCII
                          (vector-push-extend char output)))))
         (vector (let ((range-start (code-char (elt escape-chars 0)))
                       (range-end (code-char (elt escape-chars 1))))
-                  
+
                   (loop for char across string
                      do (cond
                           ((or (not (char< range-start
@@ -242,18 +242,18 @@ For example, to octal-escape all characters outside the range of printable ASCII
   (unless (and (boundp '*language*)
                (symbol-value '*language*))
     (setf *language* (keywordify
-                      (first (split-sequence 
+                      (first (split-sequence
                               #\_ (uiop/os:getenv "LANG"))))))
   (unless (and (boundp '*dialect*)
                (symbol-value '*dialect*))
     (setf *dialect* (keywordify
-                     (first (split-sequence 
+                     (first (split-sequence
                              #\. (second (split-sequence
                                           #\_ (uiop/os:getenv "LANG"))))))))
   (unless (and (boundp '*language-coding*)
                (symbol-value '*language-coding*))
     (setf *language-coding* (keywordify
-                             (second (split-sequence 
+                             (second (split-sequence
                                       #\. (uiop/os:getenv "LANG"))))))
   (values *language*
           *dialect*
@@ -272,18 +272,18 @@ returns 'IDENTITY."
         (t 'identity)))
 
 (defun irish-consonant-p (letter)
-  (member (char-downcase letter) 
+  (member (char-downcase letter)
           '(#\b #\c #\d #\f #\g #\j #\l #\m #\n #\p #\r #\s #\t #\v)))
 
 (defun irish-vowel-p (letter)
-  (member (char-downcase letter) 
+  (member (char-downcase letter)
           '(#\ɑ #\a #\á #\e #\é #\i #\í #\ı #\o #\ó #\u #\ú)))
 
 (defun substitute-map (map word)
   "Given a p-list MAP, where the keys are characters, replace them with the associated values of the p-list."
   (map 'string (lambda (char)
                  (if-let ((new (getf map char)))
-                   new 
+                   new
                    char))
        word))
 
@@ -328,12 +328,12 @@ signature of (at least) `STRING-EQUAL' (the default) or `STRING='"
 
 (defmacro string-ends-with-case (string &body clauses)
   (let ((s (gensym "STRING")))
-    `(let ((,s ,string)) 
-       (cond 
+    `(let ((,s ,string))
+       (cond
          ,@(loop for pair in clauses
               for match = (car pair)
               for body = (cdr pair)
-              collecting (cond 
+              collecting (cond
                            ((member match '(otherwise t))
                             `(t ,@body))
                            ((listp match)
@@ -349,7 +349,7 @@ signature of (at least) `STRING-EQUAL' (the default) or `STRING='"
 
 
 (defun string-fixed (string target-length &key (trim-p t)
-                                            (pad-char #\Space))
+                                               (pad-char #\Space))
   "Ensure that the string is precisely the length provided, right-padding with PAD-CHAR (Space).
 If the string is too long, it will be truncated. Returns multiple
 values: the trimmed string, and the difference in length of the new
@@ -403,7 +403,7 @@ string. If the second value is negative, the string was truncated."
     `(let ((,instance ,compare))
        (cond
          ,@(mapcar (lambda (clause)
-                     (cond ((or (eql t (car clause)) 
+                     (cond ((or (eql t (car clause))
                                 (eql 'otherwise (car clause)))
                             `(t ,@(cdr clause)))
                            ((consp (car clause))
@@ -421,8 +421,8 @@ string. If the second value is negative, the string was truncated."
     `(let ((,instance (intern$ ,compare)))
        (case ,instance
          ,@(mapcar (lambda (clause)
-                     (cond 
-                       ((or (eql t (car clause)) 
+                     (cond
+                       ((or (eql t (car clause))
                             (eql 'otherwise (car clause)))
                         `(t ,@(cdr clause)))
                        ((consp (car clause))
@@ -441,7 +441,7 @@ string. If the second value is negative, the string was truncated."
        (or
         (when (boundp '*--interning-better-breakpoint*)
           (if (numberp *--interning-better-breakpoint*)
-                  *--interning-better-breakpoint*
+              *--interning-better-breakpoint*
               (prog1
                   #+sbcl sb-ext:long-float-positive-infinity
                   #-sbcl most-positive-fixnum)))
@@ -479,7 +479,7 @@ string. If the second value is negative, the string was truncated."
                                                   (dotimes (i num-repeats)
                                                     (funcall expr/interning test-string))
                                                   (- (get-internal-real-time) start)))
-                           
+
                          ;; do (format  *trace-output* "~&;; STRING-CASE
                          ;;            Cost for ~D (~:D×): interning: ~F
                          ;;            literals:      ~F"      num-cases
@@ -491,7 +491,7 @@ string. If the second value is negative, the string was truncated."
               (format *trace-output* "~&;;; STRING-CASE trials done; sweet spot is about ~R case~:P after ~R trial~:P"
                       average (length trials))
               average))))))
-  
+
   (defmacro string-case (compare &body clauses)
     "Like a CASE expression, but using STRING= to campare cases.
 
@@ -509,7 +509,7 @@ Example:
   (etypecase word
     (string
      (make-keyword
-      (substitute #\- #\_ 
+      (substitute #\- #\_
                   (symbol-name (cffi:translate-camelcase-name word)))))
     (symbol (make-keyword (string word)))))
 
@@ -523,7 +523,7 @@ Example:
 
 (defun lc-string-syms (token)
   "Returns one or more downcased strings taken from a token or list of tokens."
-  (cond 
+  (cond
     ((symbolp token)
      (string-downcase (symbol-name token)))
     ((consp token)
@@ -545,7 +545,7 @@ as downcased strings. Similar to Perl's qw// operator."
   (let ((joiner (etypecase joiner
                   (string joiner)
                   (character (char-string joiner))
-                  (symbol (symbol-name joiner))))) 
+                  (symbol (symbol-name joiner)))))
     (reduce (lambda (a b)
               (concatenate 'string a joiner b))
             list-of-strings)))
@@ -575,15 +575,15 @@ a `FUNCTIONP'"
      (loop
         with seen = 0
         for line = (string-trim " #;/*" (read-line stream nil #\¶))
-          
+
         for blank = (zerop (length line))
-          
+
         until (or (and (> seen 1) blank)
                   (>= seen max-lines))
-          
+
         unless blank do (incf seen)
-          
-          
+
+
         when (not blank)
         collect line
         and
@@ -595,7 +595,7 @@ a `FUNCTIONP'"
 (defun error-or-nil-p (x)
   (or (null x)
       (eql :error x)))
-(deftype error-or-nil () 
+(deftype error-or-nil ()
   '(satisfies error-or-nil-p))
 
 
@@ -610,9 +610,9 @@ eg, 10 → \"A\""
 (defun parse-bignum (string &key (if-not-bignum nil))
   (check-type if-not-bignum error-or-nil)
   (let ((string (string-trim '(#\Space #\Tab) string)))
-    (cond 
+    (cond
       ((zerop (length string)) nil)
-      
+
       ((and (= 1 (count #\. string))
             (every (lambda (ch)
                      (or (digit-char-p ch)
@@ -621,17 +621,17 @@ eg, 10 → \"A\""
               (whole (parse-integer (subseq string 0 decimal)))
               (fraction$ (subseq string (1+ decimal))))
          (+ whole (/ (parse-integer fraction$) (expt 10 (length fraction$))))))
-      
+
       ((every #'digit-char-p string)
        (parse-integer string))
-      
+
       (t nil))))
 
 (defun maybe-numeric (string)
   (if-let (numeric (parse-bignum string))
     numeric
     (let ((pos (- (length string) 3)))
-      (if (and (plusp pos) 
+      (if (and (plusp pos)
                (equal " kB" (subseq string pos)))
           (* 1024 (parse-integer (subseq string 0 pos)))
           string))))
@@ -686,28 +686,28 @@ complex forms. If N is already a NUMBER, does nothing."
 ;;; String←file functions
 
 (defun split-and-collect-line (line &optional (split-char #\Space)
-                                      (filter #'string-upcase))
-  (let ((split (position split-char line))) 
+                                              (filter #'string-upcase))
+  (let ((split (position split-char line)))
     (when split
       (let ((key-part (subseq line 0 split)))
         (list (if (every #'digit-char-p key-part)
                   (parse-integer key-part)
-                  (make-keyword 
+                  (make-keyword
                    (funcall filter
-                            (string-trim 
+                            (string-trim
                              '(#\Space #\Tab)
                              (substitute #\- #\_
-                                         (substitute #\- #\( 
+                                         (substitute #\- #\(
                                                      (substitute #\Space #\)
                                                                  key-part)))))))
               (let* ((rest-of-line (subseq line (1+ split)))
                      (numeric (parse-bignum rest-of-line)))
-                (if numeric 
+                (if numeric
                     numeric
                     rest-of-line)))))))
 
 (defun split-and-collect-file (file &optional (split-char #\Space)
-                                      (filter #'string-upcase))
+                                              (filter #'string-upcase))
   (handler-bind
       ((simple-file-error (lambda (c)
                             (return-from split-and-collect-file c))))
@@ -718,7 +718,7 @@ complex forms. If N is already a NUMBER, does nothing."
          append (split-and-collect-line line split-char filter)))))
 
 (defun collect-file-lines (file &optional (record-end-char #\Newline))
-  (let (lines 
+  (let (lines
         (line (make-array 72 :element-type 'character :adjustable t :fill-pointer 0)))
     (with-open-file (reading file :direction :input)
       (loop for char = (read-char reading nil nil)
@@ -727,14 +727,14 @@ complex forms. If N is already a NUMBER, does nothing."
                 (progn (push (copy-seq line) lines)
                        (setf (fill-pointer line) 0))
                 (vector-push-extend char line 16)))
-      (when (plusp (length line)) 
+      (when (plusp (length line))
         (push lines line)))
     (nreverse lines)))
 
 
 (defun collect-file (file)
   (handler-bind
-      ((simple-file-error (lambda (c) 
+      ((simple-file-error (lambda (c)
                             (return-from collect-file c))))
     (let ((contents (string-trim '(#\Space #\Tab #\Linefeed #\Return)
                                  (alexandria:read-file-into-string file))))
@@ -752,12 +752,12 @@ complex forms. If N is already a NUMBER, does nothing."
   (cond ((and (every #'alpha-char-p string)
               (equal (string-downcase string) string))
          (make-keyword (string-upcase string)))
-        
+
         ((find = string)
-         (let ((=pos (position = string))) 
+         (let ((=pos (position = string)))
            (cons (make-keyword (string-upcase (subseq string 0 =pos)))
                  (maybe-numeric (subseq string (1+ =pos))))))
-        
+
         (t string)))
 
 (defun maybe-alist-split (string &optional (= #\=) (record-char #\,))
@@ -793,5 +793,3 @@ complex forms. If N is already a NUMBER, does nothing."
 
 (deftype c-style-identifier ()
   '(satisfies c-style-identifier-p))
-
-

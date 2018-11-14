@@ -30,4 +30,3 @@
   (assert (not atp))
   (assert (null parameters))
   (write (regex-replace-pairs *tex-escape* (string object)) :stream stream))
-

@@ -115,7 +115,7 @@
      (set-macro-character #\] 'read-delimiter)
      (set-macro-character #\{ 'read-left-brace)
      (set-macro-character #\} 'read-delimiter)
-     (set-macro-character #\# 'read-octothorpe) 
+     (set-macro-character #\# 'read-octothorpe)
      (set-syntax-from-char #\| #\-)
      (set-syntax-from-char #\, #\Space)
      (dolist (char '(#\. $\* #\+ #\! #\_ #\? #\$ #\% #\& #\= #\< #\>))
