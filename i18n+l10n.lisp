@@ -1339,7 +1339,17 @@ well enough for many (most) English words. At least, an improvement upon
 
 (defun human-duration (seconds)
   (cond
-    ((< seconds 3/4)
+    ((< seconds 1/1000000000000000)
+     "instantly")
+    ((< seconds 1/1000000000000)
+     (format nil "~d femtosecond~:p" (round (* seconds 1000000000000000))))
+    ((< seconds 1/1000000000)
+     (format nil "~d picosecond~:p" (round (* seconds 1000000000000))))
+    ((< seconds 1/1000000)
+     (format nil "~d nanosecond~:p" (round (* seconds 1000000000))))
+    ((< seconds 1/1000)
+     (format nil "~d microsecond~:p" (round (* seconds 1000000))))
+    ((< seconds 1)
      (format nil "~d millisecond~:p" (round (* seconds 1000))))
     ((< seconds 90)
      (format nil "~d second~:p" seconds))
