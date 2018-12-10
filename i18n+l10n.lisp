@@ -1339,6 +1339,8 @@ well enough for many (most) English words. At least, an improvement upon
 
 (defun human-duration (seconds)
   (cond
+    ((< seconds 3/4)
+     (format nil "~d millisecond~:p" (round (* seconds 1000))))
     ((< seconds 90)
      (format nil "~d second~:p" seconds))
     ((< seconds (* 90 60))
