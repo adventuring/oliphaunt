@@ -1361,4 +1361,4 @@ well enough for many (most) English words. At least, an improvement upon
      (format nil "~d days" (round seconds (* 24 60 60))))
     ((< seconds (* 75 7 24 60 60))
      (format nil "~d weeks" (round seconds (* 7 24 60 60))))
-    (t (format nil "~d years" (round seconds (* 365.2489 24 60 60))))))
+    (t (format nil "~:d years" (round seconds (* 365.2489 24 60 60))))))
