@@ -47,12 +47,13 @@ Accepts either a LOCAL-TIME:TIMESTAMP or NUMBER of Universal Time."
   (Register-Groups-Bind ((#'Parse-Integer Month)
                          (#'Parse-Integer Day)
                          (#'Parse-Integer Year)
+                         nil
                          (#'Parse-Integer Hour)
                          (#'Parse-Integer Minute)
                          (#'Parse-Integer Second))
-      ("(\\d\\d)/(\\d\\d)/(201\\d) ([012]\\d):([0-5]\\d):([0-5]\\d)"
+      ("(\\d\\d)/(\\d\\d)/((19|20)\\d\\d) ([012]\\d):([0-5]\\d):([0-5]\\d)"
        Created-At :SharedP T)
-    (Check-Type Year (Integer 2015 2018))
+    (Check-Type Year (Integer 1950 2050))
     (Check-Type Month (Integer 1 12))
     (Check-Type Day (Integer 1 31))
     (Assert (<= Day (Case Month
