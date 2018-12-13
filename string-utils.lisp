@@ -141,7 +141,13 @@ in some contexts.")
           "Cannot Java-encode characters whose Unicode codepoint is
  above #xFFFF. Character ~@C (~:*~:C) has a codepoint of #x~x."
           char (char-code char))
-  (format nil "\\u~4,'0x" (char-code char)))
+  (case char
+    (#\Linefeed "\\n")
+    (#\Return "\\r")
+    (#\Page "\\f")
+    (#\\ "\\\\")
+    (otherwise 
+     (format nil "\\u~4,'0x" (char-code char)))))
 
 (defun escape-c-style (char &optional _)
   (declare (ignore _))
@@ -150,7 +156,13 @@ in some contexts.")
           "Cannot C-encode characters whose Unicode codepoint is
  above #x7f yet. Character ~@C (~:*~:C) has a codepoint of #x~x."
           char (char-code char))
-  (format nil "\\u~4,'0x" (char-code char)))
+  (case char
+    (#\Linefeed "\\n")
+    (#\Return "\\r")
+    (#\Page "\\f")
+    (#\\ "\\\\")
+    (otherwise 
+     (format nil "\\x~2,'0x" (char-code char)))))
 
 (defun escape-html (char &optional _)
   (declare (ignore _))
