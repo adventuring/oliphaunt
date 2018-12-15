@@ -1352,7 +1352,7 @@ well enough for many (most) English words. At least, an improvement upon
     ((< seconds 1)
      (format nil "~d millisecond~:p" (round (* seconds 1000))))
     ((< seconds 90)
-     (format nil "~d second~:p" seconds))
+     (format nil "~d second~:p" (round seconds)))
     ((< seconds (* 90 60))
      (format nil "~d minutes" (round seconds 60)))
     ((< seconds (* 3 24 60 60))
