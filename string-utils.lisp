@@ -146,7 +146,7 @@ in some contexts.")
     (#\Return "\\r")
     (#\Page "\\f")
     (#\\ "\\\\")
-    (otherwise 
+    (otherwise
      (format nil "\\u~4,'0x" (char-code char)))))
 
 (defun escape-c-style (char &optional _)
@@ -161,7 +161,7 @@ in some contexts.")
     (#\Return "\\r")
     (#\Page "\\f")
     (#\\ "\\\\")
-    (otherwise 
+    (otherwise
      (format nil "\\x~2,'0x" (char-code char)))))
 
 (defun escape-html (char &optional _)
